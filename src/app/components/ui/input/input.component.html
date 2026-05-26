@@ -1,0 +1,17 @@
+<label class="app-input" [for]="inputId()">
+  @if (label()) {
+    <span class="app-input-label">{{ label() }}</span>
+  }
+  <input
+    [id]="inputId()"
+    [name]="name()"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [autocomplete]="autocomplete()"
+    [required]="required()"
+    [disabled]="disabled() || isDisabled"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+</label>

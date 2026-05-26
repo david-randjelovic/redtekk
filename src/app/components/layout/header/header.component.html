@@ -1,0 +1,10 @@
+<header class="nav" data-screen-label="00 Nav">
+  <div class="nav-inner" [class.is-scrolled]="isScrolled">
+    <app-brand />
+    <app-site-nav [links]="navLinks" />
+    <div class="nav-cta">
+      <app-button href="#work" variant="ghost" size="sm" label="View work" [showArrow]="false" />
+      <app-button href="#contact" size="sm" label="Book a call" />
+    </div>
+  </div>
+</header>
