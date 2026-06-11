@@ -1,64 +1,62 @@
-<section class="testimonials" data-screen-label="08 Testimonials">
+<section class="testimonials" id="testimonials" data-screen-label="06 Testimonials">
   <div class="bg-glow red"></div>
   <div class="container">
     <div class="section-head" data-reveal>
-      <span class="eyebrow">In their words</span>
-      <h2>The work matters. The relationship is why people stay.</h2>
+      <span class="eyebrow">Client feedback</span>
+      <h2>Built on years of professional experience.</h2>
+      <p>Feedback from clients who worked with members of the Redtekk team throughout their careers.</p>
     </div>
 
-    <div class="testi-grid">
-      <div class="testi featured" data-reveal>
-        <div class="testi-stars" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-        </div>
-        <p class="testi-quote">"Three years in and they're still the most reliable team we work with. They <em>think like operators</em>: about uptime, about retention, about the next quarter, not just the next ship."</p>
-        <div class="testi-foot">
-          <div class="testi-avatar"></div>
-          <div class="testi-meta">
-            <strong>Maren Holloway</strong>
-            <span>VP Product · Northwind</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi" data-reveal style="--delay: 100ms">
-        <div class="testi-stars" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-        </div>
-        <p class="testi-quote">"They built the site, then never left. Five years of incremental, compounding improvements that turned our marketing into an asset."</p>
-        <div class="testi-foot">
-          <div class="testi-avatar" style="background: linear-gradient(135deg, #3a3a4a, #1a1a24)"></div>
-          <div class="testi-meta">
-            <strong>Idris Olu</strong>
-            <span>CMO · Lumen</span>
-          </div>
+    <div class="testi-slider" data-reveal>
+      <div class="testi-viewport">
+        <div class="testi-track" [style.transform]="trackTransform()">
+          @for (testimonial of testimonials; track testimonial.name) {
+            <div class="testi" [class.featured]="testimonial.featured" [style.flex]="'0 0 ' + slideBasis()">
+              @if (testimonial.quote) {
+                <div class="testi-mark">"</div>
+                <p class="testi-quote">{{ testimonial.quote }}</p>
+              } @else if (testimonial.rating) {
+                <div class="testi-stars" [attr.aria-label]="testimonial.rating + ' out of 5 stars'">
+                  @for (star of [].constructor(testimonial.rating); track $index) {
+                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.8 1-5.85L1.5 7.65l5.9-.85z" /></svg>
+                  }
+                </div>
+                <p class="testi-quote testi-rating-label">Verified 5-star review.</p>
+              }
+              <div class="testi-foot">
+                <div class="testi-avatar">
+                  <img [src]="testimonial.image" [alt]="testimonial.name" loading="lazy" />
+                </div>
+                <div class="testi-meta">
+                  <strong>{{ testimonial.name }}</strong>
+                  <span>{{ testimonial.role }}</span>
+                </div>
+              </div>
+            </div>
+          }
         </div>
       </div>
 
-      <div class="testi" data-reveal style="--delay: 200ms">
-        <div class="testi-stars" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z" /></svg>
+      <div class="testi-controls">
+        <button class="testi-arrow" type="button" (click)="previous()" aria-label="Previous testimonials">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4L3 8l4 4" /></svg>
+        </button>
+
+        <div class="testi-dots">
+          @for (dot of dots(); track $index) {
+            <button
+              class="testi-dot"
+              type="button"
+              [class.is-active]="$index === index()"
+              (click)="goTo($index)"
+              [attr.aria-label]="'Go to testimonial group ' + ($index + 1)"
+            ></button>
+          }
         </div>
-        <p class="testi-quote">"Senior, accountable, calm under pressure. We treat them as part of the team because that's how they show up."</p>
-        <div class="testi-foot">
-          <div class="testi-avatar" style="background: linear-gradient(135deg, #2a3a4a, #14202a)"></div>
-          <div class="testi-meta">
-            <strong>Priya Ramanathan</strong>
-            <span>CTO · Strata</span>
-          </div>
-        </div>
+
+        <button class="testi-arrow" type="button" (click)="next()" aria-label="Next testimonials">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+        </button>
       </div>
     </div>
   </div>

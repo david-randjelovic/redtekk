@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 
-import { ParticlePoint, PointerState } from '../interfaces/motion.interfaces';
+import { HeroBuildBox } from '../interfaces/motion.interfaces';
 
 @Directive({
   standalone: true,
@@ -21,6 +21,8 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
   private readonly _platformId = inject(PLATFORM_ID);
   private readonly _cleanupHandlers: Array<() => void> = [];
   private readonly _intersectionObservers: IntersectionObserver[] = [];
+  private readonly _heroBuildCell = 64;
+  private readonly _heroBuildMaxBoxes = 7;
 
   private _heroFrameId: number | null = null;
 
@@ -49,7 +51,7 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
     this._initProcessTimeline();
     this._initParallax();
     this._initServiceSpotlight();
-    this._initHeroParticles();
+    this._initHeroBuildScene();
     this._initCaseCharts();
   }
 
@@ -192,8 +194,8 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
     });
   }
 
-  private _initHeroParticles(): void {
-    const canvas = this._elementRef.nativeElement.querySelector<HTMLCanvasElement>('#hero-canvas');
+  private _initHeroBuildScene(): void {
+    const canvas = this._elementRef.nativeElement.querySelector<HTMLCanvasElement>('#hero-build');
     const context = canvas?.getContext('2d');
 
     if (!canvas || !context) {
@@ -203,8 +205,7 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
     let pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
     let height = 0;
-    const points: ParticlePoint[] = [];
-    const pointer: PointerState = { x: -9999, y: -9999, active: false };
+    const boxes: HeroBuildBox[] = [];
 
     const resize = (): void => {
       const rect = canvas.getBoundingClientRect();
@@ -217,171 +218,314 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     };
 
-    const init = (): void => {
-      const pointCount = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 22000));
-
-      points.length = 0;
-
-      for (let index = 0; index < pointCount; index += 1) {
-        points.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: (Math.random() - 0.5) * 0.18,
-          r: Math.random() * 1.2 + 0.6,
-          accent: Math.random() < 0.18,
-        });
-      }
-    };
-
-    const onMouseMove = (event: MouseEvent): void => {
-      const rect = canvas.getBoundingClientRect();
-
-      pointer.x = event.clientX - rect.left;
-      pointer.y = event.clientY - rect.top;
-      pointer.active = true;
-    };
-
-    const onMouseLeave = (): void => {
-      pointer.active = false;
-      pointer.x = -9999;
-      pointer.y = -9999;
+    const step = (now: number): void => {
+      this._drawHeroBuildScene(context, boxes, width, height, now);
+      this._heroFrameId = window.requestAnimationFrame(step);
     };
 
     const onResize = (): void => {
       resize();
-      init();
-    };
-
-    const step = (): void => {
-      this._drawHeroParticles(context, points, pointer, width, height);
-      this._heroFrameId = window.requestAnimationFrame(step);
     };
 
     resize();
-    init();
-    step();
 
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', onMouseLeave);
+    const initialSpawnIds = Array.from({ length: 4 }, (_, index) =>
+      window.setTimeout(() => this._spawnHeroBuildBox(boxes, width, height), index * 250),
+    );
+    const spawnIntervalId = window.setInterval(
+      () => this._spawnHeroBuildBox(boxes, width, height),
+      900,
+    );
+
+    this._heroFrameId = window.requestAnimationFrame(step);
     window.addEventListener('resize', onResize);
-
     this._cleanupHandlers.push(() => {
-      canvas.removeEventListener('mousemove', onMouseMove);
-      canvas.removeEventListener('mouseleave', onMouseLeave);
       window.removeEventListener('resize', onResize);
+      window.clearInterval(spawnIntervalId);
+      initialSpawnIds.forEach((spawnId) => window.clearTimeout(spawnId));
     });
   }
 
-  private _drawHeroParticles(
+  private _drawHeroBuildScene(
     context: CanvasRenderingContext2D,
-    points: ParticlePoint[],
-    pointer: PointerState,
+    boxes: HeroBuildBox[],
     width: number,
     height: number,
+    now: number,
   ): void {
     context.clearRect(0, 0, width, height);
+    this._drawHeroBuildConnections(context, boxes, now);
 
-    const gradient = context.createRadialGradient(
-      width / 2,
-      height * 0.6,
-      0,
-      width / 2,
-      height * 0.6,
-      Math.max(width, height) * 0.7,
+    for (let index = boxes.length - 1; index >= 0; index -= 1) {
+      const box = boxes[index];
+
+      if (!box || !this._drawHeroBuildBox(context, box, now)) {
+        boxes.splice(index, 1);
+      }
+    }
+  }
+
+  private _spawnHeroBuildBox(boxes: HeroBuildBox[], width: number, height: number): void {
+    if (boxes.length >= this._heroBuildMaxBoxes || width <= 0 || height <= 0) {
+      return;
+    }
+
+    const boxWidth = (1 + Math.floor(Math.random() * 4)) * this._heroBuildCell;
+    const boxHeight = (1 + Math.floor(Math.random() * 2)) * this._heroBuildCell;
+    const margin = this._heroBuildCell;
+    const maxX = Math.max(margin, width - boxWidth - margin * 2);
+    const maxY = Math.max(margin, height - boxHeight - margin * 2);
+    let x = margin;
+    let y = margin;
+    let attempts = 0;
+
+    do {
+      x = this._snapHeroBuildValue(margin + Math.random() * maxX);
+      y = this._snapHeroBuildValue(margin + Math.random() * maxY);
+      attempts += 1;
+    } while (
+      attempts < 8 &&
+      this._heroBuildIntersectsCenter(x, y, boxWidth, boxHeight, width, height)
     );
 
-    gradient.addColorStop(0, 'rgba(220, 38, 50, 0.06)');
-    gradient.addColorStop(1, 'rgba(0,0,0,0)');
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, width, height);
-
-    points.forEach((point) => this._updateAndDrawPoint(context, point, pointer, width, height));
-    this._drawHeroConnections(context, points);
+    boxes.push({
+      x,
+      y,
+      width: boxWidth,
+      height: boxHeight,
+      born: performance.now(),
+      lifeIn: 900,
+      lifeHold: 4200,
+      lifeOut: 1100,
+      accent: Math.random() < 0.28,
+      filled: Math.random() < 0.35,
+    });
   }
 
-  private _updateAndDrawPoint(
-    context: CanvasRenderingContext2D,
-    point: ParticlePoint,
-    pointer: PointerState,
+  private _heroBuildIntersectsCenter(
+    x: number,
+    y: number,
     width: number,
     height: number,
-  ): void {
-    point.x += point.vx;
-    point.y += point.vy;
+    canvasWidth: number,
+    canvasHeight: number,
+  ): boolean {
+    const centerX = canvasWidth / 2;
+    const centerY = canvasHeight / 2;
+    const reservedWidth = Math.min(canvasWidth * 0.55, 720);
+    const reservedHeight = Math.min(canvasHeight * 0.45, 380);
+    const reservedX = centerX - reservedWidth / 2;
+    const reservedY = centerY - reservedHeight / 2;
 
-    if (pointer.active) {
-      const dx = point.x - pointer.x;
-      const dy = point.y - pointer.y;
-      const distanceSquared = dx * dx + dy * dy;
-
-      if (distanceSquared < 18000) {
-        const force = ((18000 - distanceSquared) / 18000) * 0.6;
-        const distance = Math.sqrt(distanceSquared) || 1;
-
-        point.x += (dx / distance) * force;
-        point.y += (dy / distance) * force;
-      }
-    }
-
-    if (point.x < -10) {
-      point.x = width + 10;
-    }
-
-    if (point.x > width + 10) {
-      point.x = -10;
-    }
-
-    if (point.y < -10) {
-      point.y = height + 10;
-    }
-
-    if (point.y > height + 10) {
-      point.y = -10;
-    }
-
-    context.beginPath();
-    context.arc(point.x, point.y, point.r, 0, Math.PI * 2);
-
-    if (point.accent) {
-      context.fillStyle = 'rgba(244, 70, 80, 0.85)';
-      context.shadowColor = 'rgba(244, 70, 80, 0.7)';
-      context.shadowBlur = 10;
-    } else {
-      context.fillStyle = 'rgba(220, 220, 230, 0.55)';
-      context.shadowBlur = 0;
-    }
-
-    context.fill();
-    context.shadowBlur = 0;
+    return !(
+      x + width < reservedX ||
+      x > reservedX + reservedWidth ||
+      y + height < reservedY ||
+      y > reservedY + reservedHeight
+    );
   }
 
-  private _drawHeroConnections(context: CanvasRenderingContext2D, points: ParticlePoint[]): void {
-    for (let firstIndex = 0; firstIndex < points.length; firstIndex += 1) {
-      for (let secondIndex = firstIndex + 1; secondIndex < points.length; secondIndex += 1) {
-        const first = points[firstIndex];
-        const second = points[secondIndex];
-        const dx = first.x - second.x;
-        const dy = first.y - second.y;
-        const distanceSquared = dx * dx + dy * dy;
-        const maxDistanceSquared = 140 * 140;
+  private _snapHeroBuildValue(value: number): number {
+    return Math.round(value / this._heroBuildCell) * this._heroBuildCell;
+  }
 
-        if (distanceSquared >= maxDistanceSquared) {
-          continue;
-        }
-
-        const opacity = 1 - distanceSquared / maxDistanceSquared;
-        context.strokeStyle =
-          first.accent || second.accent
-            ? `rgba(244, 70, 80, ${opacity * 0.35})`
-            : `rgba(220, 220, 235, ${opacity * 0.12})`;
-        context.lineWidth = 0.6;
-        context.beginPath();
-        context.moveTo(first.x, first.y);
-        context.lineTo(second.x, second.y);
-        context.stroke();
-      }
+  private _drawHeroBuildConnections(
+    context: CanvasRenderingContext2D,
+    boxes: HeroBuildBox[],
+    now: number,
+  ): void {
+    if (boxes.length < 2) {
+      return;
     }
+
+    context.save();
+    context.lineWidth = 0.6;
+    context.setLineDash([3, 5]);
+    context.lineDashOffset = -(now / 90);
+
+    for (let index = 0; index < boxes.length - 1; index += 1) {
+      const first = boxes[index];
+      const second = boxes[index + 1];
+
+      if (
+        !first ||
+        !second ||
+        !this._isHeroBuildBoxAlive(first, now) ||
+        !this._isHeroBuildBoxAlive(second, now)
+      ) {
+        continue;
+      }
+
+      context.strokeStyle = 'rgba(244, 70, 80, 0.18)';
+      context.beginPath();
+      context.moveTo(first.x + first.width / 2, first.y + first.height / 2);
+      context.lineTo(second.x + second.width / 2, second.y + second.height / 2);
+      context.stroke();
+    }
+
+    context.setLineDash([]);
+    context.restore();
+  }
+
+  private _drawHeroBuildBox(
+    context: CanvasRenderingContext2D,
+    box: HeroBuildBox,
+    now: number,
+  ): boolean {
+    const totalLifetime = box.lifeIn + box.lifeHold + box.lifeOut;
+    const age = now - box.born;
+
+    if (age > totalLifetime) {
+      return false;
+    }
+
+    let progress = 1;
+    let alpha = 1;
+
+    if (age < box.lifeIn) {
+      progress = age / box.lifeIn;
+      alpha = progress;
+    } else if (age > box.lifeIn + box.lifeHold) {
+      const outProgress = (age - box.lifeIn - box.lifeHold) / box.lifeOut;
+      alpha = 1 - outProgress;
+    }
+
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const perimeter = 2 * (box.width + box.height);
+    const drawn = perimeter * eased;
+
+    context.save();
+    context.translate(box.x, box.y);
+    this._drawHeroBuildFill(context, box, progress, alpha);
+    this._drawHeroBuildPerimeter(context, box, drawn, alpha, now);
+    this._drawHeroBuildAnchors(context, box, progress, alpha);
+    context.restore();
+
+    return true;
+  }
+
+  private _isHeroBuildBoxAlive(box: HeroBuildBox, now: number): boolean {
+    return now - box.born < box.lifeIn + box.lifeHold + box.lifeOut;
+  }
+
+  private _drawHeroBuildFill(
+    context: CanvasRenderingContext2D,
+    box: HeroBuildBox,
+    progress: number,
+    alpha: number,
+  ): void {
+    if (!box.filled || progress <= 0.5) {
+      return;
+    }
+
+    const fillAlpha = (progress - 0.5) * 2 * alpha;
+    const pad = 10;
+
+    context.fillStyle = box.accent
+      ? `rgba(244, 70, 80, ${0.04 * fillAlpha})`
+      : `rgba(255, 255, 255, ${0.022 * fillAlpha})`;
+    context.fillRect(0, 0, box.width, box.height);
+
+    if (box.height < this._heroBuildCell) {
+      return;
+    }
+
+    this._drawHeroBuildBar(context, box, pad + 4, Math.min(box.width - pad * 2, box.width * 0.4), fillAlpha);
+    this._drawHeroBuildBar(context, box, pad + 14, Math.min(box.width - pad * 2, box.width * 0.7), fillAlpha);
+
+    if (box.height >= this._heroBuildCell * 2) {
+      this._drawHeroBuildBar(context, box, pad + 28, Math.min(box.width - pad * 2, box.width * 0.5), fillAlpha);
+    }
+  }
+
+  private _drawHeroBuildBar(
+    context: CanvasRenderingContext2D,
+    box: HeroBuildBox,
+    y: number,
+    width: number,
+    fillAlpha: number,
+  ): void {
+    context.fillStyle = box.accent
+      ? `rgba(244, 70, 80, ${0.18 * fillAlpha})`
+      : `rgba(255, 255, 255, ${0.07 * fillAlpha})`;
+    context.fillRect(10, y, width, 4);
+  }
+
+  private _drawHeroBuildPerimeter(
+    context: CanvasRenderingContext2D,
+    box: HeroBuildBox,
+    drawn: number,
+    alpha: number,
+    now: number,
+  ): void {
+    const stroke = box.accent
+      ? `rgba(244, 90, 100, ${0.85 * alpha})`
+      : `rgba(255, 255, 255, ${0.45 * alpha})`;
+
+    context.strokeStyle = stroke;
+    context.lineWidth = 1;
+    context.setLineDash([4, 4]);
+    context.lineDashOffset = -(now / 60);
+    context.shadowBlur = box.accent ? 14 : 0;
+    context.shadowColor = 'rgba(244, 70, 80, 0.6)';
+
+    let remaining = drawn;
+
+    context.beginPath();
+    remaining = this._drawHeroBuildSegment(context, 0, 0, box.width, 0, remaining);
+    remaining = this._drawHeroBuildSegment(context, box.width, 0, box.width, box.height, remaining);
+    remaining = this._drawHeroBuildSegment(context, box.width, box.height, 0, box.height, remaining);
+    this._drawHeroBuildSegment(context, 0, box.height, 0, 0, remaining);
+    context.stroke();
+    context.shadowBlur = 0;
+    context.setLineDash([]);
+  }
+
+  private _drawHeroBuildSegment(
+    context: CanvasRenderingContext2D,
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number,
+    remaining: number,
+  ): number {
+    if (remaining <= 0) {
+      return remaining;
+    }
+
+    const length = Math.abs(endX - startX) + Math.abs(endY - startY);
+    const progress = Math.min(1, remaining / length);
+
+    context.moveTo(startX, startY);
+    context.lineTo(
+      this._lerpHeroBuildValue(startX, endX, progress),
+      this._lerpHeroBuildValue(startY, endY, progress),
+    );
+
+    return remaining - length;
+  }
+
+  private _drawHeroBuildAnchors(
+    context: CanvasRenderingContext2D,
+    box: HeroBuildBox,
+    progress: number,
+    alpha: number,
+  ): void {
+    if (progress <= 0.9) {
+      return;
+    }
+
+    context.fillStyle = box.accent
+      ? `rgba(255, 110, 120, ${alpha})`
+      : `rgba(220, 220, 235, ${0.6 * alpha})`;
+    context.fillRect(-2, -2, 4, 4);
+    context.fillRect(box.width - 2, -2, 4, 4);
+    context.fillRect(-2, box.height - 2, 4, 4);
+    context.fillRect(box.width - 2, box.height - 2, 4, 4);
+  }
+
+  private _lerpHeroBuildValue(start: number, end: number, progress: number): number {
+    return start + (end - start) * progress;
   }
 
   private _initCaseCharts(): void {

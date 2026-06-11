@@ -4,7 +4,7 @@
     <app-site-nav [links]="navLinks" />
     <div class="nav-cta">
       <app-button href="#work" variant="ghost" size="sm" label="View work" [showArrow]="false" />
-      <app-button href="#contact" size="sm" label="Book a call" />
+      <app-button size="sm" label="Book a call" (click)="calendar.open()" />
     </div>
   </div>
 </header>

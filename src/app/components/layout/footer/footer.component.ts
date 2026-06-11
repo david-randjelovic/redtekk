@@ -1,57 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { FooterColumn, FooterSocialLink } from '../../../interfaces/navigation.interfaces';
+import { CalendarModalService } from '../../../services/calendar-modal.service';
+import { CookieConsentService } from '../../../services/cookie-consent.service';
+import { ServicesModalService } from '../../../services/services-modal.service';
 import { BrandComponent } from '../brand/brand.component';
 
 @Component({
   standalone: true,
   selector: 'app-site-footer',
-  imports: [BrandComponent],
+  imports: [BrandComponent, RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
+  protected readonly modal = inject(ServicesModalService);
+  protected readonly calendar = inject(CalendarModalService);
+  protected readonly cookies = inject(CookieConsentService);
+
   protected readonly footerColumns: ReadonlyArray<FooterColumn> = [
     {
       title: 'Services',
       links: [
-        { label: 'Web Design', href: '#services' },
-        { label: 'Development', href: '#services' },
-        { label: 'Web Apps', href: '#services' },
-        { label: 'Maintenance', href: '#services' },
+        { label: 'Design', serviceId: 'design' },
+        { label: 'Development', serviceId: 'development' },
+        { label: 'AI Solutions', serviceId: 'ai' },
+        { label: 'Integrations', serviceId: 'integrations' },
+        { label: 'Optimization', serviceId: 'optimization' },
+        { label: 'Support', serviceId: 'support' },
       ],
     },
     {
       title: 'Studio',
       links: [
-        { label: 'Why us', href: '#why' },
+        { label: 'Services', href: '#services' },
         { label: 'Process', href: '#process' },
-        { label: 'Case studies', href: '#work' },
-        { label: 'Careers', href: '#' },
+        { label: 'Work', href: '#work' },
+        { label: 'Testimonials', href: '#testimonials' },
+        { label: 'Book a call', action: 'calendar' },
       ],
     },
     {
-      title: 'Resources',
+      title: 'Legal',
       links: [
-        { label: 'Journal', href: '#' },
-        { label: 'Playbooks', href: '#' },
-        { label: 'Brand assets', href: '#' },
+        { label: 'Privacy Policy', route: '/privacy-policy' },
+        { label: 'Cookie Policy', route: '/cookie-policy' },
+        { label: 'Cookie settings', action: 'cookies' },
       ],
     },
     {
       title: 'Contact',
       links: [
         { label: 'hello@redtekk.com', href: 'mailto:hello@redtekk.com' },
-        { label: '+1 (415) 555 0188', href: 'tel:+14155550188' },
-        { label: 'San Francisco · Lisbon', href: '#' },
+        { label: 'RS · Serbia', href: '#' },
       ],
     },
   ];
 
   protected readonly socials: ReadonlyArray<FooterSocialLink> = [
-    { label: 'Twitter', href: '#', icon: 'twitter' },
     { label: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { label: 'Dribbble', href: '#', icon: 'dribbble' },
-    { label: 'GitHub', href: '#', icon: 'github' },
+    { label: 'X', href: '#', icon: 'twitter' },
   ];
 }

@@ -1,145 +1,29 @@
-<section class="cases" id="work" data-screen-label="07 Work">
+<section class="cases" id="work" data-screen-label="05 Work">
+  <div class="bg-glow red"></div>
   <div class="container">
     <div class="section-head" data-reveal>
       <span class="eyebrow">Selected work</span>
-      <h2>Outcomes we still maintain, measured years after launch.</h2>
+      <h2>Experience that speaks for itself.</h2>
+      <p>A selection of projects completed throughout the professional journey of the people behind Redtekk.</p>
     </div>
 
-    <div class="cases-grid">
-      <article class="case-card large" data-reveal="scale">
-        <div class="case-visual" aria-hidden="true">
-          <div class="case-mock">
-            <div class="case-mock-bar"><span></span><span></span><span></span></div>
-            <div class="case-mock-body">
-              <div class="mock-line tall red"></div>
-              <div class="mock-line wide"></div>
-              <div class="mock-line med"></div>
-              <div class="mock-line row"><span class="glow"></span><span></span><span></span></div>
-              <div class="mock-line block"></div>
-              <div class="mock-line short"></div>
+    <div class="work-grid">
+      @for (project of projects; track project.name; let i = $index) {
+        <article class="work-card" [class.is-nda]="project.nda" data-reveal="scale" [style.--delay.ms]="(i % 3) * 80">
+          @if (project.nda) {
+            <div class="work-nda" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
             </div>
+          } @else {
+            <div class="work-media"><img [src]="project.image" [alt]="project.name" loading="lazy" /></div>
+          }
+          <div class="work-overlay">
+            <span class="work-cat">{{ project.category }}</span>
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.description }}</p>
           </div>
-          <canvas class="case-chart" data-points="[12,18,22,30,38,46,58,72,88]"></canvas>
-        </div>
-        <div class="case-body">
-          <div class="case-tags">
-            <span class="case-tag">SaaS</span>
-            <span class="case-tag">Web app</span>
-            <span class="case-tag">3 yr partner</span>
-          </div>
-          <h3>Northwind: onboarding rebuilt, activation up 2.4×</h3>
-          <p>A complete redesign of the signup-to-first-value flow, followed by 18 months of weekly experiments.</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="v">+142%</div><div class="l">Activation</div></div>
-            <div class="case-metric"><div class="v">−38%</div><div class="l">Time to value</div></div>
-            <div class="case-metric"><div class="v">9.4/10</div><div class="l">CSAT</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card small" data-reveal="scale" style="--delay: 80ms">
-        <div class="case-visual" aria-hidden="true">
-          <div class="case-mock">
-            <div class="case-mock-bar"><span></span><span></span><span></span></div>
-            <div class="case-mock-body">
-              <div class="mock-line tall"></div>
-              <div class="mock-line wide"></div>
-              <div class="mock-line med"></div>
-              <div class="mock-line short"></div>
-              <div class="mock-line block"></div>
-            </div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-tags">
-            <span class="case-tag">DTC</span>
-            <span class="case-tag">2 yr partner</span>
-          </div>
-          <h3>Halcyon: checkout uplift</h3>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="v">+34%</div><div class="l">Conversion</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card small" data-reveal="scale" style="--delay: 160ms">
-        <div class="case-visual" aria-hidden="true">
-          <div class="case-mock">
-            <div class="case-mock-bar"><span></span><span></span><span></span></div>
-            <div class="case-mock-body">
-              <div class="mock-line wide"></div>
-              <div class="mock-line row"><span></span><span class="glow"></span></div>
-              <div class="mock-line med"></div>
-              <div class="mock-line short"></div>
-            </div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-tags">
-            <span class="case-tag">Fintech</span>
-            <span class="case-tag">4 yr partner</span>
-          </div>
-          <h3>Strata: internal platform</h3>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="v">−61%</div><div class="l">Ops cost</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card small" data-reveal="scale" style="--delay: 240ms">
-        <div class="case-visual" aria-hidden="true">
-          <div class="case-mock">
-            <div class="case-mock-bar"><span></span><span></span><span></span></div>
-            <div class="case-mock-body">
-              <div class="mock-line tall red"></div>
-              <div class="mock-line wide"></div>
-              <div class="mock-line short"></div>
-              <div class="mock-line block"></div>
-            </div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-tags">
-            <span class="case-tag">Marketing site</span>
-            <span class="case-tag">5 yr partner</span>
-          </div>
-          <h3>Lumen: brand site &amp; CMS</h3>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="v">+88%</div><div class="l">Demo requests</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card large" data-reveal="scale" style="--delay: 200ms">
-        <div class="case-visual" aria-hidden="true">
-          <div class="case-mock">
-            <div class="case-mock-bar"><span></span><span></span><span></span></div>
-            <div class="case-mock-body">
-              <div class="mock-line wide"></div>
-              <div class="mock-line med"></div>
-              <div class="mock-line row"><span></span><span class="glow"></span><span></span><span></span></div>
-              <div class="mock-line tall red"></div>
-              <div class="mock-line block"></div>
-              <div class="mock-line short"></div>
-            </div>
-          </div>
-          <canvas class="case-chart" data-points="[20,22,30,36,30,44,52,68,84]"></canvas>
-        </div>
-        <div class="case-body">
-          <div class="case-tags">
-            <span class="case-tag">SaaS</span>
-            <span class="case-tag">Web + product</span>
-            <span class="case-tag">5 yr partner</span>
-          </div>
-          <h3>Vector: from launch site to full platform</h3>
-          <p>What started as a marketing site became an operational platform serving 220k users. Same team, every release.</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="v">220k</div><div class="l">MAU</div></div>
-            <div class="case-metric"><div class="v">99.98%</div><div class="l">Uptime</div></div>
-            <div class="case-metric"><div class="v">5 yrs</div><div class="l">Partnership</div></div>
-          </div>
-        </div>
-      </article>
+        </article>
+      }
     </div>
   </div>
 </section>

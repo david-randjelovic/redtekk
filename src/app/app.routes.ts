@@ -6,4 +6,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/pages/home/home.component').then((component) => component.HomeComponent),
   },
+  {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./components/pages/privacy-policy/privacy-policy.component').then(
+        (component) => component.PrivacyPolicyComponent,
+      ),
+  },
+  {
+    path: 'cookie-policy',
+    loadComponent: () =>
+      import('./components/pages/cookie-policy/cookie-policy.component').then(
+        (component) => component.CookiePolicyComponent,
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

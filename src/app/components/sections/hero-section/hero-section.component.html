@@ -1,38 +1,78 @@
 <section class="hero" data-screen-label="01 Hero">
-  <div class="hero-bg">
-    <div class="bg-grid"></div>
-    <div class="hero-glow-1" data-parallax="-0.05"></div>
-    <div class="hero-glow-2" data-parallax="-0.08"></div>
-    <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-bg hero-bg-it">
+    <div class="bg-grid drift"></div>
+    <div class="aurora dim"></div>
+
+    <div class="snap-grid" aria-hidden="true">
+      <span style="--x: 12%; --y: 22%; --d: 0s"></span>
+      <span style="--x: 28%; --y: 14%; --d: 1.4s"></span>
+      <span style="--x: 38%; --y: 32%; --d: 2.6s"></span>
+      <span style="--x: 56%; --y: 18%; --d: 0.8s"></span>
+      <span style="--x: 64%; --y: 38%; --d: 3.2s"></span>
+      <span style="--x: 76%; --y: 24%; --d: 2s"></span>
+      <span style="--x: 86%; --y: 12%; --d: 4.2s"></span>
+      <span style="--x: 18%; --y: 58%; --d: 1s"></span>
+      <span style="--x: 32%; --y: 72%; --d: 3.6s"></span>
+      <span style="--x: 48%; --y: 64%; --d: 2.4s"></span>
+      <span style="--x: 70%; --y: 70%; --d: 0.4s"></span>
+      <span style="--x: 84%; --y: 58%; --d: 4.8s"></span>
+      <span style="--x: 14%; --y: 84%; --d: 3s"></span>
+      <span style="--x: 50%; --y: 88%; --d: 1.6s"></span>
+      <span style="--x: 80%; --y: 82%; --d: 2.8s"></span>
+    </div>
+
+    <canvas id="hero-build" class="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="code-chips" aria-hidden="true">
+      <span class="chip" style="--x: 6%; --dur: 22s; --delay: 0s; --dx: 30px;">&lt;header /&gt;</span>
+      <span class="chip mono" style="--x: 16%; --dur: 26s; --delay: 4s; --dx: -20px;">npm&nbsp;run&nbsp;build</span>
+      <span class="chip red" style="--x: 27%; --dur: 24s; --delay: 9s; --dx: 24px;">200 OK</span>
+      <span class="chip" style="--x: 38%; --dur: 28s; --delay: 2s; --dx: -30px;">&lt;section&gt;</span>
+      <span class="chip mono" style="--x: 50%; --dur: 30s; --delay: 13s; --dx: 18px;">const ui = init()</span>
+      <span class="chip" style="--x: 60%; --dur: 23s; --delay: 6s; --dx: -22px;">&lt;/main&gt;</span>
+      <span class="chip mono" style="--x: 70%; --dur: 27s; --delay: 11s; --dx: 28px;">git push origin</span>
+      <span class="chip red" style="--x: 80%; --dur: 25s; --delay: 3s; --dx: -18px;">deploy -> live</span>
+      <span class="chip" style="--x: 90%; --dur: 29s; --delay: 8s; --dx: 22px;">figma -> code</span>
+    </div>
+
+    <div class="hero-prompt" aria-hidden="true">
+      <span class="hero-prompt-glyph">›</span>
+      <span class="hero-prompt-text">building&nbsp;your&nbsp;web</span>
+      <span class="hero-caret"></span>
+    </div>
+
     <div class="hero-vignette"></div>
     <div class="bg-noise"></div>
   </div>
 
   <div class="container hero-inner">
-    <div class="hero-badge" data-reveal="fade">
-      <span class="hero-badge-pill">Now booking | Q3</span>
-      <span>Trusted by 80+ founders &amp; product teams</span>
+    <div class="hero-badge">
+      <span class="hero-badge-pill">Since 2021</span>
+      <span>Trusted by growing businesses across the globe</span>
     </div>
 
-    <h1 data-reveal style="--delay: 60ms">Your long-term <span class="accent">digital partner</span></h1>
+    <h1>
+      <span class="word-mask"><span style="--delay: 100ms">Your&nbsp;</span></span>
+      <span class="word-mask"><span style="--delay: 220ms">long-term</span></span><br />
+      <span class="word-mask"><span class="accent" style="--delay: 340ms">digital partner.</span></span>
+    </h1>
 
-    <p class="hero-sub" data-reveal style="--delay: 160ms">
-      RedTekk designs, develops, and maintains modern web experiences built to scale,
-      from first wireframe through every release after launch. One team, accountable for the long run.
+    <p class="hero-sub" data-reveal style="--delay: 600ms">
+      We design, build, and support digital products that businesses rely on long after launch.
     </p>
 
-    <div class="hero-cta" data-reveal style="--delay: 240ms">
-      <app-button href="#contact" label="Book a call" />
-      <app-button href="#work" variant="ghost" label="View our work" />
+    <div class="hero-cta" data-reveal style="--delay: 700ms">
+      <app-button label="Book a call" (click)="calendar.open()" />
+      <app-button href="#work" variant="ghost" label="View work" [showArrow]="false" />
     </div>
 
-    <div class="hero-trust" data-reveal style="--delay: 320ms">
+    <div class="hero-trust" data-reveal style="--delay: 800ms">
       <div class="hero-avatars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-      <span>9+ years of hands-on web delivery</span>
+      <span>Long-term partnerships</span>
       <span class="dot"></span>
-      <span>140+ projects shipped</span>
+      <span>Fast communication</span>
       <span class="dot"></span>
-      <span>Typical reply time: under 4 hours</span>
+      <span>Reliable delivery</span>
     </div>
   </div>
 

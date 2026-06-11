@@ -1,0 +1,40 @@
+@if (calendar.isOpen()) {
+  <div class="calendar-modal-backdrop" (click)="calendar.close()">
+    <div
+      class="calendar-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Book a call"
+      (click)="$event.stopPropagation()"
+    >
+      <button class="service-modal-close" type="button" aria-label="Close" (click)="calendar.close()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+
+      @if (cookies.hasConsent('functional')) {
+        @if (!loaded()) {
+          <div class="calendar-modal-loader" aria-hidden="true">
+            <span class="calendar-modal-spinner"></span>
+            <span class="calendar-modal-loading-text">Loading calendar…</span>
+          </div>
+        }
+
+        <iframe
+          class="calendar-modal-frame"
+          [class.is-loaded]="loaded()"
+          [src]="calendlyUrl"
+          title="Book a call with RedTekk"
+          (load)="onFrameLoad()"
+        ></iframe>
+      } @else {
+        <div class="calendar-consent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2" /><path d="M3 9h18M8 2v4M16 2v4" /></svg>
+          <h4>Load the scheduler</h4>
+          <p>Our booking tool is provided by Calendly, which sets functional cookies. Allow them to load the calendar and book your call.</p>
+          <button type="button" class="cookie-btn cookie-btn-primary" (click)="allowAndLoad()">Allow &amp; load scheduler</button>
+          <a routerLink="/cookie-policy" (click)="calendar.close()">Read our Cookie Policy</a>
+        </div>
+      }
+    </div>
+  </div>
+}

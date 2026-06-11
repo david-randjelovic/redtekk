@@ -1,14 +1,12 @@
-export interface ParticlePoint {
+export interface HeroBuildBox {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
-  r: number;
+  width: number;
+  height: number;
+  born: number;
+  lifeIn: number;
+  lifeHold: number;
+  lifeOut: number;
   accent: boolean;
-}
-
-export interface PointerState {
-  x: number;
-  y: number;
-  active: boolean;
+  filled: boolean;
 }

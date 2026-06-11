@@ -1,9 +1,9 @@
-<footer data-screen-label="11 Footer">
+<footer data-screen-label="08 Footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <app-brand />
-        <p>Long-term digital partner for teams who care about what happens after launch.</p>
+        <p>Your long-term digital partner.</p>
       </div>
 
       @for (column of footerColumns; track column.title) {
@@ -11,7 +11,19 @@
           <h4>{{ column.title }}</h4>
           <ul>
             @for (link of column.links; track link.label) {
-              <li><a [href]="link.href">{{ link.label }}</a></li>
+              <li>
+                @if (link.serviceId) {
+                  <button type="button" class="footer-link-btn" (click)="modal.openById(link.serviceId)">{{ link.label }}</button>
+                } @else if (link.action === 'calendar') {
+                  <button type="button" class="footer-link-btn" (click)="calendar.open()">{{ link.label }}</button>
+                } @else if (link.action === 'cookies') {
+                  <button type="button" class="footer-link-btn" (click)="cookies.openPreferences()">{{ link.label }}</button>
+                } @else if (link.route) {
+                  <a [routerLink]="link.route">{{ link.label }}</a>
+                } @else {
+                  <a [href]="link.href">{{ link.label }}</a>
+                }
+              </li>
             }
           </ul>
         </div>
@@ -19,7 +31,7 @@
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 RedTekk Studio · All rights reserved</span>
+      <span>© 2026 RedTekk Studio</span>
       <div class="footer-socials">
         @for (social of socials; track social.label) {
           <a [href]="social.href" [attr.aria-label]="social.label">

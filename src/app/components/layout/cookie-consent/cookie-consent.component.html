@@ -1,0 +1,77 @@
+@if (cookies.bannerVisible()) {
+  <div class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-banner-inner">
+      <div class="cookie-banner-text">
+        <strong>We value your privacy</strong>
+        <p>
+          We use cookies to keep the site working and, with your permission, to load our scheduling
+          tool (Calendly). Read more in our
+          <a routerLink="/privacy-policy">Privacy Policy</a> and
+          <a routerLink="/cookie-policy">Cookie Policy</a>.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-ghost" (click)="cookies.openPreferences()">Manage preferences</button>
+        <button type="button" class="cookie-btn cookie-btn-ghost" (click)="cookies.declineAll()">Decline</button>
+        <button type="button" class="cookie-btn cookie-btn-primary" (click)="cookies.acceptAll()">Accept all</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (cookies.preferencesOpen()) {
+  <div class="cookie-modal-backdrop" (click)="cookies.closePreferences()">
+    <div
+      class="cookie-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cookie preferences"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="cookie-modal-head">
+        <span class="eyebrow">Cookie preferences</span>
+        <button class="service-modal-close" type="button" aria-label="Close" (click)="cookies.closePreferences()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+
+      <p class="cookie-modal-lead">
+        Choose which cookies you want to accept. Essential cookies are always active as they are
+        necessary for the site to function.
+      </p>
+
+      <div class="cookie-option">
+        <div class="cookie-option-head">
+          <h4>Essential cookies</h4>
+          <span class="cookie-always-on">Always on</span>
+        </div>
+        <p>Required for the site to work and to remember your cookie choice. These cannot be disabled.</p>
+      </div>
+
+      <div class="cookie-option">
+        <div class="cookie-option-head">
+          <h4>Functional cookies</h4>
+          <button
+            type="button"
+            class="cookie-switch"
+            role="switch"
+            [class.is-on]="draftFunctional()"
+            [attr.aria-checked]="draftFunctional()"
+            aria-label="Functional cookies"
+            (click)="toggleFunctional()"
+          >
+            <span class="cookie-switch-thumb"></span>
+          </button>
+        </div>
+        <p>Enable our scheduling tool (Calendly) so you can book a call directly on the site.</p>
+      </div>
+
+      <div class="cookie-modal-foot">
+        <button type="button" class="cookie-btn cookie-btn-primary cookie-btn-block" (click)="savePreferences()">
+          Save preferences
+        </button>
+        <span class="cookie-modal-note">You can change your choice anytime via "Cookie settings" in the footer.</span>
+      </div>
+    </div>
+  </div>
+}
