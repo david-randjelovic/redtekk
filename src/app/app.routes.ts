@@ -21,6 +21,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'technologies',
+    loadComponent: () =>
+      import('./components/pages/technologies/technologies.component').then(
+        (component) => component.TechnologiesComponent,
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

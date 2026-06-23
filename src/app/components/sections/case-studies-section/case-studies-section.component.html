@@ -7,25 +7,51 @@
       <p>A selection of projects completed throughout the professional journey of the people behind Redtekk.</p>
     </div>
 
-    <div class="work-grid">
-      @for (project of projects; track project.name; let i = $index) {
-        <article class="work-card" [class.is-nda]="project.nda" data-reveal="scale" [style.--delay.ms]="(i % 3) * 80">
-          <div class="work-media">
-            @if (project.nda) {
-              <div class="work-nda" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
-                <span>Under NDA</span>
+    <div class="work-slider" data-reveal>
+      <div class="work-viewport">
+        <div class="work-track" [style.transform]="trackTransform()">
+          @for (project of projects; track project.name) {
+            <article class="work-card" [class.is-nda]="project.nda" [style.flex]="'0 0 ' + slideBasis()">
+              <div class="work-media">
+                @if (project.nda) {
+                  <div class="work-nda" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                    <span>Under NDA</span>
+                  </div>
+                } @else {
+                  <img [src]="project.image" [alt]="project.name" loading="lazy" />
+                }
               </div>
-            } @else {
-              <img [src]="project.image" [alt]="project.name" loading="lazy" />
-            }
-          </div>
-          <div class="work-body">
-            <span class="work-tag">{{ project.category }}</span>
-            <h3>{{ project.name }} <span class="work-sub">· {{ project.description }}</span></h3>
-          </div>
-        </article>
-      }
+              <div class="work-body">
+                <span class="work-tag">{{ project.category }}</span>
+                <h3>{{ project.name }} <span class="work-sub">· {{ project.description }}</span></h3>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+
+      <div class="work-controls">
+        <button class="work-arrow" type="button" (click)="previous()" aria-label="Previous work projects">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4L3 8l4 4" /></svg>
+        </button>
+
+        <div class="work-dots">
+          @for (dot of dots(); track $index) {
+            <button
+              class="work-dot"
+              type="button"
+              [class.is-active]="$index === index()"
+              (click)="goTo($index)"
+              [attr.aria-label]="'Go to work group ' + ($index + 1)"
+            ></button>
+          }
+        </div>
+
+        <button class="work-arrow" type="button" (click)="next()" aria-label="Next work projects">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>

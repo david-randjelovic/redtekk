@@ -2,8 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject, signal } from '@angular/core';
 
 /**
- * Controls the global "Book a call" Calendly popup. Shared so any
- * "Book a call" trigger (header, hero, final CTA, footer) opens the
+ * Controls the global "Schedule a meeting" Calendly popup. Shared so any
+ * "Schedule a meeting" trigger (header, hero, final CTA, footer) opens the
  * single modal rendered at the app root.
  */
 @Injectable({ providedIn: 'root' })

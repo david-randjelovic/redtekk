@@ -1,0 +1,71 @@
+<main class="technologies-page" appRedtekkMotion>
+  <section class="tech-hero" data-screen-label="Technologies">
+    <div class="bg-grid drift" aria-hidden="true"></div>
+    <div class="tech-glow tech-glow-a" aria-hidden="true"></div>
+    <div class="tech-glow tech-glow-b" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <div class="container tech-hero-inner">
+      <a routerLink="/" class="tech-back" data-reveal>Back to home</a>
+
+      <div class="tech-hero-copy">
+        <span class="eyebrow" data-reveal>Technology stack</span>
+        <h1 data-reveal style="--delay: 100ms">Explore technologies we use</h1>
+        <p data-reveal style="--delay: 180ms">
+          A practical stack grouped by the way we use it: AI workflows, frontend builds,
+          backends, data, commerce, infrastructure, and messaging.
+        </p>
+      </div>
+
+      <div class="tech-orbit" data-reveal="scale" style="--delay: 260ms" aria-label="Featured technologies">
+        @for (technology of featuredTechnologies; track technology.name; let i = $index) {
+          <span class="tech-orbit-item" [style.--i]="i">
+            <img [src]="technology.icon" [alt]="technology.name" />
+            <span>{{ technology.name }}</span>
+          </span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-directory">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">By niche</span>
+        <h2>Tools with a clear role.</h2>
+        <p>
+          We choose tools by fit, not fashion. Each group below maps to a part of the product
+          lifecycle where that technology gives us leverage.
+        </p>
+      </div>
+
+      <div class="tech-categories">
+        @for (category of categories; track category.title; let categoryIndex = $index) {
+          <article class="tech-category" data-reveal [style.--delay.ms]="(categoryIndex % 3) * 90">
+            <header class="tech-category-head">
+              <span class="tech-category-index">{{ (categoryIndex + 1).toString().padStart(2, '0') }}</span>
+              <div>
+                <h2>{{ category.title }}</h2>
+                <p>{{ category.description }}</p>
+              </div>
+            </header>
+
+            <div class="tech-grid">
+              @for (technology of category.items; track technology.name) {
+                <div class="tech-card">
+                  <div class="tech-icon">
+                    <img [src]="technology.icon" [alt]="technology.name + ' icon'" />
+                  </div>
+                  <div>
+                    <h3>{{ technology.name }}</h3>
+                    <span>{{ technology.note }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+</main>

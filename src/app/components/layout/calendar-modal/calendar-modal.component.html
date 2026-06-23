@@ -4,7 +4,7 @@
       class="calendar-modal"
       role="dialog"
       aria-modal="true"
-      aria-label="Book a call"
+      aria-label="Schedule a meeting"
       (click)="$event.stopPropagation()"
     >
       <button class="service-modal-close" type="button" aria-label="Close" (click)="calendar.close()">
@@ -23,7 +23,7 @@
           class="calendar-modal-frame"
           [class.is-loaded]="loaded()"
           [src]="calendlyUrl"
-          title="Book a call with RedTekk"
+          title="Schedule a meeting with RedTekk"
           (load)="onFrameLoad()"
         ></iframe>
       } @else {

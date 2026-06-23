@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 
 import { CalendarModalComponent } from './components/layout/calendar-modal/calendar-modal.component';
@@ -13,4 +14,8 @@ import { HeaderComponent } from './components/layout/header/header.component';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {}
+export class App {
+  constructor(title: Title) {
+    title.setTitle('Software Development Company | Redtekk');
+  }
+}

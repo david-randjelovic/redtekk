@@ -38,7 +38,7 @@ export class FooterComponent {
         { label: 'Process', href: '#process' },
         { label: 'Work', href: '#work' },
         { label: 'Testimonials', href: '#testimonials' },
-        { label: 'Book a call', action: 'calendar' },
+        { label: 'Schedule a meeting', action: 'calendar' },
       ],
     },
     {
