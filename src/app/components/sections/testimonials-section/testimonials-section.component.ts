@@ -30,7 +30,7 @@ export class TestimonialsSectionComponent implements OnInit, OnDestroy {
 
   protected readonly testimonials: Testimonial[] = [
     {
-      quote: 'David delivers work of exceptional quality and always goes above and beyond expectations.',
+      quote: 'David is extremely easy to work with, maintaining excellent communication throughout the project. He delivers work of exceptional quality and always go above and beyond expectations. Highly recommend to anyone looking for a reliable and skilled professional!',
       name: 'Steinar Mangersnes',
       role: 'Kind Group',
       image: 'assets/testimonials/steinar.webp',
@@ -43,7 +43,7 @@ export class TestimonialsSectionComponent implements OnInit, OnDestroy {
       image: 'assets/testimonials/double_aim.webp',
     },
     {
-      quote: "David was great to work with. I'm very happy with the outcome of the project. I would highly recommend!",
+      quote: 'David has been incredible to work with (again). His communication is fantastic, his quality of work is incredible and he really went above and beyond with suggestions to make the product better than I had originally briefed. I would highly recommend David to anyone.',
       name: 'Tracey',
       role: 'Founder, HerdSpace',
       image: 'assets/testimonials/herdspace-profile.webp',
@@ -67,7 +67,7 @@ export class TestimonialsSectionComponent implements OnInit, OnDestroy {
       image: 'assets/testimonials/JDJ.png',
     },
     {
-      quote: 'David is a highly skilled developer. Highly recommended for large long-term projects.',
+      quote: 'David is a highly skilled developer, very professional, mild, and easy to work with. Highly recommended for large long-term projects. Thank you so much!',
       name: 'Abdulrahman Aboshamah',
       role: 'VoyCiv',
       image: 'assets/testimonials/miodrag.webp',

@@ -14,6 +14,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'about',
+    loadComponent: () =>
+      import('./components/pages/about/about.component').then((component) => component.AboutComponent),
+  },
+  {
     path: 'cookie-policy',
     loadComponent: () =>
       import('./components/pages/cookie-policy/cookie-policy.component').then(
@@ -25,6 +30,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/pages/technologies/technologies.component').then(
         (component) => component.TechnologiesComponent,
+      ),
+  },
+  {
+    path: 'how-we-use-ai',
+    loadComponent: () =>
+      import('./components/pages/how-we-use-ai/how-we-use-ai.component').then(
+        (component) => component.HowWeUseAiComponent,
       ),
   },
   {

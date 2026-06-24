@@ -1,0 +1,122 @@
+<main class="ai-page" appRedtekkMotion>
+  <section class="ai-hero" data-screen-label="How we use AI">
+    <div class="bg-grid drift" aria-hidden="true"></div>
+    <div class="ai-glow ai-glow-a" aria-hidden="true"></div>
+    <div class="ai-glow ai-glow-b" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <div class="container ai-hero-inner">
+      <a routerLink="/" class="ai-back" data-reveal>Back to home</a>
+
+      <div class="ai-hero-copy">
+        <span class="eyebrow" data-reveal>How we use AI</span>
+        <h1 data-reveal style="--delay: 100ms">Faster delivery. Smarter products.</h1>
+        <p data-reveal style="--delay: 180ms">
+          We use AI in two clear ways: to build software faster, and to add useful AI features
+          inside the products we create for clients.
+        </p>
+      </div>
+
+      <div class="ai-hero-panel" data-reveal="scale" style="--delay: 260ms">
+        <article>
+          <span>01</span>
+          <h2>Up to 8x faster software delivery, powered by agentic AI engineering.</h2>
+          <p>
+            We combine 7+ years of engineering experience with AI-assisted workflows. AI helps
+            us move faster, but senior developers still review the code, architecture, security,
+            and product decisions.
+          </p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>We help you turn AI potential into business value.</h2>
+          <p>
+            We find practical AI opportunities, build around real business needs, and connect the
+            solution to the tools and workflows your team already uses.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ai-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">AI in your business</span>
+        <h2>We integrate AI where it actually helps.</h2>
+        <p>
+          Not every workflow needs AI. We look for places where AI can save time, reduce manual
+          work, improve decisions, or make your product easier to use.
+        </p>
+      </div>
+
+      <div class="ai-card-grid">
+        @for (card of businessCards; track card.title; let i = $index) {
+          <article class="ai-card" data-reveal [style.--delay.ms]="i * 80">
+            <span>{{ card.eyebrow }}</span>
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ai-section ai-section-split">
+    <div class="container ai-split">
+      <div class="ai-split-copy" data-reveal>
+        <span class="eyebrow">AI in our delivery</span>
+        <h2>Your project gets senior engineering with AI speed.</h2>
+        <p>
+          AI helps us cut repetitive work and explore solutions faster. That means more budget
+          goes into product quality, testing, architecture, and the parts of the product your users
+          actually feel.
+        </p>
+      </div>
+
+      <div class="ai-steps">
+        @for (step of deliverySteps; track step.title; let i = $index) {
+          <article class="ai-step" data-reveal [style.--delay.ms]="i * 70">
+            <span>{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.text }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ai-section ai-trust-section">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow center">Human oversight</span>
+        <h2>AI is a tool. Engineers stay responsible.</h2>
+        <p>
+          We use AI to speed up work, not to lower the bar. Every important decision still has a
+          human owner.
+        </p>
+      </div>
+
+      <div class="ai-trust-grid">
+        @for (card of trustCards; track card.title; let i = $index) {
+          <article class="ai-card" data-reveal [style.--delay.ms]="i * 80">
+            <span>{{ card.eyebrow }}</span>
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ai-cta">
+    <div class="container ai-cta-inner" data-reveal>
+      <span class="eyebrow">Next step</span>
+      <h2>Have a workflow that feels slow, manual, or expensive?</h2>
+      <p>We can help you check if AI is the right fix, then build the smallest useful version first.</p>
+      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+    </div>
+  </section>
+</main>

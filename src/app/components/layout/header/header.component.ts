@@ -17,10 +17,18 @@ export class HeaderComponent implements OnInit {
   protected readonly calendar = inject(CalendarModalService);
 
   protected readonly navLinks: ReadonlyArray<NavLink> = [
-    { label: 'Services', href: '#services' },
-    { label: 'Process', href: '#process' },
-    { label: 'Work', href: '#work' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Services', route: '/', fragment: 'services' },
+    { label: 'Process', route: '/', fragment: 'process' },
+    { label: 'Work', route: '/', fragment: 'work' },
+    {
+      label: 'About',
+      children: [
+        { label: 'About us', route: '/about' },
+        { label: 'Technologies we use', route: '/technologies' },
+        { label: 'How we use AI?', route: '/how-we-use-ai' },
+      ],
+    },
+    { label: 'Contact', route: '/', fragment: 'contact' },
   ];
 
   protected isScrolled = false;

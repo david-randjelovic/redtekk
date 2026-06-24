@@ -1,7 +1,48 @@
 <nav aria-label="Primary navigation">
   <ul class="nav-links">
-    @for (link of links(); track link.href) {
-      <li><a [href]="link.href">{{ link.label }}</a></li>
+    @for (link of links(); track link.label) {
+      <li
+        class="nav-item"
+        [class.has-dropdown]="link.children?.length"
+        [class.is-open]="isDropdownOpen(link)"
+        (mouseenter)="openDropdown(link)"
+        (mouseleave)="closeDropdown()"
+      >
+        @if (link.route) {
+          <a class="nav-link" [routerLink]="link.route" [fragment]="link.fragment" (click)="closeDropdown()">
+            {{ link.label }}
+          </a>
+        } @else if (link.href) {
+          <a class="nav-link" [href]="link.href" (click)="closeDropdown()">{{ link.label }}</a>
+        } @else {
+          <button
+            class="nav-link nav-link-button"
+            type="button"
+            [attr.aria-expanded]="isDropdownOpen(link)"
+            aria-haspopup="true"
+            (click)="toggleDropdown(link)"
+          >
+            {{ link.label }}
+            <span class="nav-link-caret" aria-hidden="true"></span>
+          </button>
+        }
+
+        @if (link.children?.length) {
+          <ul class="nav-dropdown">
+            @for (child of link.children; track child.label) {
+              <li>
+                @if (child.route) {
+                  <a [routerLink]="child.route" [fragment]="child.fragment" (click)="closeDropdown()">
+                    {{ child.label }}
+                  </a>
+                } @else if (child.href) {
+                  <a [href]="child.href" (click)="closeDropdown()">{{ child.label }}</a>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </li>
     }
   </ul>
 </nav>

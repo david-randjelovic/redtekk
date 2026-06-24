@@ -1,6 +1,9 @@
 export interface NavLink {
   readonly label: string;
-  readonly href: string;
+  readonly href?: string;
+  readonly route?: string;
+  readonly fragment?: string;
+  readonly children?: ReadonlyArray<NavLink>;
 }
 
 export interface FooterLink {

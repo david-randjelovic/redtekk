@@ -1,0 +1,100 @@
+<main class="about-page" appRedtekkMotion>
+  <div class="about-page-glow about-page-glow-a" aria-hidden="true"></div>
+  <div class="about-page-glow about-page-glow-b" aria-hidden="true"></div>
+
+  <section class="about-hero" data-screen-label="About RedTekk">
+    <div class="about-hero-bg" aria-hidden="true">
+      <div class="bg-grid drift about-hero-grid"></div>
+      <div class="about-glow about-glow-a"></div>
+      <div class="about-glow about-glow-b"></div>
+      <div class="bg-noise"></div>
+    </div>
+
+    <div class="container about-hero-inner">
+      <a routerLink="/" class="about-back" data-reveal>Back to home</a>
+
+      <div class="about-hero-copy">
+        <span class="eyebrow" data-reveal>About RedTekk</span>
+        <h1 data-reveal style="--delay: 100ms">A small team for serious digital products.</h1>
+        <p data-reveal style="--delay: 180ms">
+          We are a small team of engineers and designers from Novi Sad, Serbia. We help people
+          turn ambitious ideas into software that is clear, reliable, and ready to grow.
+        </p>
+      </div>
+
+      <div class="about-story" data-reveal style="--delay: 260ms">
+        <p>
+          RedTekk exists for founders, teams, and businesses that have a dream project but need a
+          technical partner who can make it real.
+        </p>
+        <p>
+          Sometimes that means a new app. Sometimes it is a custom internal tool, a better website,
+          a marketplace, an automation system, or an AI-powered workflow. Our job is to bring
+          structure to the idea, design the right experience, build the product, and stay close
+          after launch.
+        </p>
+        <p>
+          We like simple communication, honest technical advice, and products that do what they
+          promise. Small team, focused work, real responsibility.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">How we work</span>
+        <h2>Close enough to care. Experienced enough to deliver.</h2>
+        <p>
+          We keep the team compact so the work stays focused. You get direct access, fast decisions,
+          and people who understand both the product and the code.
+        </p>
+      </div>
+
+      <div class="about-card-grid">
+        @for (card of cards; track card.title; let i = $index) {
+          <article class="about-card" data-reveal [style.--delay.ms]="i * 80">
+            <span>{{ card.eyebrow }}</span>
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section about-principles-section">
+    <div class="container about-principles">
+      <div class="about-principles-copy" data-reveal>
+        <span class="eyebrow">What matters to us</span>
+        <h2>Good software is not magic. It is care, taste, and engineering discipline.</h2>
+        <p>
+          We do not try to make the process mysterious. We ask good questions, make practical
+          choices, and build in a way that your team can keep using.
+        </p>
+      </div>
+
+      <div class="about-principle-list">
+        @for (principle of principles; track principle.title; let i = $index) {
+          <article class="about-principle" data-reveal [style.--delay.ms]="i * 70">
+            <span>{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <div>
+              <h3>{{ principle.title }}</h3>
+              <p>{{ principle.text }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="container about-cta-inner" data-reveal>
+      <span class="eyebrow">Build with us</span>
+      <h2>Have a dream project that needs a real product team?</h2>
+      <p>Bring the idea. We will help shape it, build it, and make it ready for the people who need it.</p>
+      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+    </div>
+  </section>
+</main>
