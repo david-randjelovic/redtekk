@@ -56,7 +56,6 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
   }
 
   private _initScrollReveal(): void {
-    const elements = this._queryAll<HTMLElement>('[data-reveal]');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -71,8 +70,35 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    const observeRevealElements = (root: ParentNode): void => {
+      root.querySelectorAll<HTMLElement>('[data-reveal]').forEach((element) => observer.observe(element));
+    };
+
+    observeRevealElements(this._elementRef.nativeElement);
+
+    // Routed pages can reuse this directive's host across navigations (e.g. param-only
+    // route changes), so @for-rendered [data-reveal] elements get swapped out without
+    // ngAfterViewInit running again. Watch for those replacements and observe them too.
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) {
+            return;
+          }
+
+          if (node.hasAttribute('data-reveal')) {
+            observer.observe(node);
+          }
+
+          observeRevealElements(node);
+        });
+      });
+    });
+
+    mutationObserver.observe(this._elementRef.nativeElement, { childList: true, subtree: true });
+
     this._intersectionObservers.push(observer);
+    this._cleanupHandlers.push(() => mutationObserver.disconnect());
   }
 
   private _initCountUp(): void {
@@ -126,8 +152,13 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
     const line = wrap.querySelector<HTMLElement>('.process-line');
     const steps = Array.from(wrap.querySelectorAll<HTMLElement>('.process-step'));
     const stepCount = steps.length;
+    let frameId: number | null = null;
 
-    const onScroll = (): void => {
+    // getBoundingClientRect() forces a synchronous layout reflow, so this
+    // must be rAF-throttled rather than run on every raw scroll event -
+    // otherwise rapid trackpad/wheel scrolling can jank the main thread
+    // badly enough that momentum scrolling appears to stop dead.
+    const update = (): void => {
       const rect = wrap.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const start = viewportHeight * 0.85;
@@ -142,11 +173,27 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
         const threshold = (index + 0.5) / stepCount;
         step.classList.toggle('active', progress >= threshold);
       });
+
+      frameId = null;
+    };
+
+    const onScroll = (): void => {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(update);
     };
 
     document.addEventListener('scroll', onScroll, { passive: true });
-    this._cleanupHandlers.push(() => document.removeEventListener('scroll', onScroll));
-    onScroll();
+    this._cleanupHandlers.push(() => {
+      document.removeEventListener('scroll', onScroll);
+
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    });
+    update();
   }
 
   private _initParallax(): void {
@@ -229,19 +276,57 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
 
     resize();
 
+    let spawnIntervalId: number | null = null;
+
+    const startSpawning = (): void => {
+      if (spawnIntervalId !== null) {
+        return;
+      }
+
+      spawnIntervalId = window.setInterval(() => this._spawnHeroBuildBox(boxes, width, height), 900);
+    };
+
+    const stopSpawning = (): void => {
+      if (spawnIntervalId === null) {
+        return;
+      }
+
+      window.clearInterval(spawnIntervalId);
+      spawnIntervalId = null;
+    };
+
     const initialSpawnIds = Array.from({ length: 4 }, (_, index) =>
       window.setTimeout(() => this._spawnHeroBuildBox(boxes, width, height), index * 250),
     );
-    const spawnIntervalId = window.setInterval(
-      () => this._spawnHeroBuildBox(boxes, width, height),
-      900,
+
+    // The canvas redraw uses shadowBlur and per-box dashed strokes, which are
+    // some of the costlier things to do in 2D canvas. Looping that at 60fps
+    // forever (even while scrolled far past the hero) can starve the main
+    // thread enough to jank or interrupt unrelated scroll momentum elsewhere
+    // on the page, so pause the whole scene whenever it isn't visible.
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries.some((entry) => entry.isIntersecting);
+
+        if (isVisible && this._heroFrameId === null) {
+          this._heroFrameId = window.requestAnimationFrame(step);
+          startSpawning();
+        } else if (!isVisible && this._heroFrameId !== null) {
+          window.cancelAnimationFrame(this._heroFrameId);
+          this._heroFrameId = null;
+          stopSpawning();
+        }
+      },
+      { threshold: 0 },
     );
 
-    this._heroFrameId = window.requestAnimationFrame(step);
+    visibilityObserver.observe(canvas);
+    this._intersectionObservers.push(visibilityObserver);
+
     window.addEventListener('resize', onResize);
     this._cleanupHandlers.push(() => {
       window.removeEventListener('resize', onResize);
-      window.clearInterval(spawnIntervalId);
+      stopSpawning();
       initialSpawnIds.forEach((spawnId) => window.clearTimeout(spawnId));
     });
   }

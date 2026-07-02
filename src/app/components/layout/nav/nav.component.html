@@ -45,4 +45,61 @@
       </li>
     }
   </ul>
+
+  <button
+    class="nav-burger"
+    type="button"
+    [class.is-open]="isMobileOpen()"
+    (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="isMobileOpen()"
+    aria-haspopup="true"
+    aria-controls="mobile-nav-panel"
+    aria-label="Toggle menu"
+  >
+    <span class="nav-burger-line"></span>
+    <span class="nav-burger-line"></span>
+    <span class="nav-burger-line"></span>
+  </button>
+
+  <div class="mobile-nav-panel" id="mobile-nav-panel" [class.is-open]="isMobileOpen()">
+    <ul class="mobile-nav-links">
+      @for (link of links(); track link.label) {
+        <li class="mobile-nav-item">
+          @if (link.route) {
+            <a [routerLink]="link.route" [fragment]="link.fragment" (click)="closeMobileMenu()">{{ link.label }}</a>
+          } @else if (link.href) {
+            <a [href]="link.href" (click)="closeMobileMenu()">{{ link.label }}</a>
+          } @else {
+            <button
+              type="button"
+              class="mobile-nav-toggle"
+              [attr.aria-expanded]="isDropdownOpen(link)"
+              (click)="toggleDropdown(link)"
+            >
+              {{ link.label }}
+              <span class="mobile-nav-caret" [class.is-open]="isDropdownOpen(link)" aria-hidden="true"></span>
+            </button>
+          }
+
+          @if (link.children?.length) {
+            <div class="mobile-nav-dropdown" [class.is-open]="isDropdownOpen(link)">
+              <ul>
+                @for (child of link.children; track child.label) {
+                  <li>
+                    @if (child.route) {
+                      <a [routerLink]="child.route" [fragment]="child.fragment" (click)="closeMobileMenu()">
+                        {{ child.label }}
+                      </a>
+                    } @else if (child.href) {
+                      <a [href]="child.href" (click)="closeMobileMenu()">{{ child.label }}</a>
+                    }
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  </div>
 </nav>

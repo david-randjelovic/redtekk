@@ -19,6 +19,32 @@ export const routes: Routes = [
       import('./components/pages/about/about.component').then((component) => component.AboutComponent),
   },
   {
+    path: 'contact',
+    loadComponent: () =>
+      import('./components/pages/contact/contact.component').then(
+        (component) => component.ContactComponent,
+      ),
+  },
+  {
+    path: 'work',
+    loadComponent: () =>
+      import('./components/pages/work/work.component').then((component) => component.WorkComponent),
+  },
+  {
+    path: 'process',
+    loadComponent: () =>
+      import('./components/pages/process/process.component').then(
+        (component) => component.ProcessComponent,
+      ),
+  },
+  {
+    path: 'services/:id',
+    loadComponent: () =>
+      import('./components/pages/service-detail/service-detail.component').then(
+        (component) => component.ServiceDetailComponent,
+      ),
+  },
+  {
     path: 'cookie-policy',
     loadComponent: () =>
       import('./components/pages/cookie-policy/cookie-policy.component').then(

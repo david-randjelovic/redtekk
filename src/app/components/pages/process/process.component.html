@@ -1,0 +1,101 @@
+<main class="proc-page" appRedtekkMotion>
+  <section class="proc-hero" data-screen-label="Our Process">
+    <div class="bg-grid drift" aria-hidden="true"></div>
+    <div class="proc-glow proc-glow-a" aria-hidden="true"></div>
+    <div class="proc-glow proc-glow-b" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <div class="container proc-hero-inner">
+      <a routerLink="/" class="proc-back" data-reveal>Back to home</a>
+
+      <div class="proc-hero-copy">
+        <span class="eyebrow" data-reveal>Our process</span>
+        <h1 data-reveal style="--delay: 100ms">Six stages. One team, start to finish.</h1>
+        <p data-reveal style="--delay: 180ms">
+          Every project moves through the same clear process, so you always know what is happening,
+          why it matters, and what comes next.
+        </p>
+      </div>
+
+      <div class="proc-hero-panel" data-reveal="scale" style="--delay: 260ms">
+        <article>
+          <span>01</span>
+          <h2>No handoffs between phases.</h2>
+          <p>
+            The same team that scopes the project designs, builds, and supports it. Context never
+            gets lost moving from one stage to the next.
+          </p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>You always know what stage you are in.</h2>
+          <p>
+            Each stage has a clear goal and a clear deliverable, so progress is visible, not just
+            promised.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="proc-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">The six stages</span>
+        <h2>What happens, stage by stage.</h2>
+        <p>
+          Each stage builds directly on the last. Here is what actually happens in each one, and
+          what you get at the end of it.
+        </p>
+      </div>
+
+      <div class="proc-stage-list">
+        @for (stage of stages; track stage.title; let i = $index) {
+          <article class="proc-stage" data-reveal [style.--delay.ms]="i * 60">
+            <span class="proc-stage-num">{{ stage.num }}</span>
+            <div class="proc-stage-body">
+              <h3>{{ stage.title }}</h3>
+              <p class="proc-stage-summary">{{ stage.summary }}</p>
+              <p class="proc-stage-text">{{ stage.text }}</p>
+              <div class="proc-stage-deliverable">
+                <span>What you get</span>
+                <p>{{ stage.deliverable }}</p>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+    <div class="proc-section-glow proc-section-glow-a" aria-hidden="true"></div>
+  </section>
+
+  <section class="proc-section proc-why-section">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow center">Why it works</span>
+        <h2>Structure without the bureaucracy.</h2>
+        <p>The process exists to keep the project clear and moving, not to slow it down.</p>
+      </div>
+
+      <div class="proc-card-grid">
+        @for (card of principles; track card.title; let i = $index) {
+          <article class="proc-card" data-reveal [style.--delay.ms]="i * 80">
+            <span>{{ card.eyebrow }}</span>
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+    <div class="proc-section-glow proc-section-glow-b" aria-hidden="true"></div>
+  </section>
+
+  <section class="proc-cta">
+    <div class="container proc-cta-inner" data-reveal>
+      <span class="eyebrow">Next step</span>
+      <h2>Ready to see how this would work for your project?</h2>
+      <p>Tell us what you are building. We will walk you through how each stage would actually apply.</p>
+      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+    </div>
+  </section>
+</main>

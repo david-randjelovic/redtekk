@@ -1,0 +1,107 @@
+@if (service(); as service) {
+  <main class="svc-page" appRedtekkMotion>
+    <section class="svc-hero" [attr.data-screen-label]="service.title">
+      <div class="bg-grid drift" aria-hidden="true"></div>
+      <div class="svc-glow svc-glow-a" aria-hidden="true"></div>
+      <div class="svc-glow svc-glow-b" aria-hidden="true"></div>
+      <div class="bg-noise" aria-hidden="true"></div>
+
+      <div class="container svc-hero-inner">
+        <a routerLink="/" class="svc-back" data-reveal>Back to home</a>
+
+        <div class="svc-hero-copy">
+          <span class="eyebrow" data-reveal>{{ service.label }}</span>
+          <h1 data-reveal style="--delay: 100ms">{{ service.tagline }}</h1>
+          <p data-reveal style="--delay: 180ms">{{ service.intro }}</p>
+        </div>
+
+        <div class="svc-hero-panel" data-reveal="scale" style="--delay: 260ms">
+          <article>
+            <span>01</span>
+            <h2>{{ service.highlightOne.title }}</h2>
+            <p>{{ service.highlightOne.text }}</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h2>{{ service.highlightTwo.title }}</h2>
+            <p>{{ service.highlightTwo.text }}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">What's included</span>
+          <h2>{{ service.title }}, broken into clear pieces.</h2>
+          <p>{{ service.deliverablesIntro }}</p>
+        </div>
+
+        <div class="svc-card-grid">
+          @for (card of service.deliverables; track card.title; let i = $index) {
+            <article class="svc-card" data-reveal [style.--delay.ms]="i * 80">
+              <span>{{ card.eyebrow }}</span>
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.text }}</p>
+            </article>
+          }
+        </div>
+      </div>
+      <div class="svc-section-glow svc-section-glow-a" aria-hidden="true"></div>
+    </section>
+
+    <section class="svc-section svc-section-split">
+      <div class="container svc-split">
+        <div class="svc-split-copy" data-reveal>
+          <span class="eyebrow">How it works</span>
+          <h2>A process you can follow.</h2>
+          <p>{{ service.processIntro }}</p>
+        </div>
+
+        <div class="svc-steps">
+          @for (step of service.processSteps; track step.title; let i = $index) {
+            <article class="svc-step" data-reveal [style.--delay.ms]="i * 70">
+              <span>{{ (i + 1).toString().padStart(2, '0') }}</span>
+              <div>
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.text }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+      <div class="svc-section-glow svc-section-glow-b" aria-hidden="true"></div>
+    </section>
+
+    <section class="svc-section svc-trust-section">
+      <div class="container">
+        <div class="section-head center" data-reveal>
+          <span class="eyebrow center">{{ service.whyEyebrow }}</span>
+          <h2>{{ service.whyTitle }}</h2>
+          <p>{{ service.whyText }}</p>
+        </div>
+
+        <div class="svc-trust-grid">
+          @for (card of service.whyCards; track card.title; let i = $index) {
+            <article class="svc-card" data-reveal [style.--delay.ms]="i * 80">
+              <span>{{ card.eyebrow }}</span>
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.text }}</p>
+            </article>
+          }
+        </div>
+      </div>
+      <div class="svc-section-glow svc-section-glow-a" aria-hidden="true"></div>
+    </section>
+
+    <section class="svc-cta">
+      <div class="container svc-cta-inner" data-reveal>
+        <span class="eyebrow">Next step</span>
+        <h2>{{ service.ctaTitle }}</h2>
+        <p>{{ service.ctaText }}</p>
+        <app-button label="Schedule a meeting" (click)="calendar.open()" />
+      </div>
+    </section>
+  </main>
+}

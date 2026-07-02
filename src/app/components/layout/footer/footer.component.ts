@@ -35,8 +35,8 @@ export class FooterComponent {
       title: 'Studio',
       links: [
         { label: 'Services', href: '#services' },
-        { label: 'Process', href: '#process' },
-        { label: 'Work', href: '#work' },
+        { label: 'Process', route: '/process' },
+        { label: 'Work', route: '/work' },
         { label: 'Testimonials', href: '#testimonials' },
         { label: 'Schedule a meeting', action: 'calendar' },
       ],

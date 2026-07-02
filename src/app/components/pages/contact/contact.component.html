@@ -1,0 +1,115 @@
+<main class="contact-page" appRedtekkMotion>
+  <section class="contact-hero" data-screen-label="Contact RedTekk">
+    <div class="bg-grid drift" aria-hidden="true"></div>
+    <div class="contact-glow contact-glow-a" aria-hidden="true"></div>
+    <div class="contact-glow contact-glow-b" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <div class="container contact-hero-inner">
+      <a routerLink="/" class="contact-back" data-reveal>Back to home</a>
+
+      <div class="contact-hero-copy">
+        <span class="eyebrow" data-reveal>Contact RedTekk</span>
+        <h1 data-reveal style="--delay: 100ms">Tell us what you want to build.</h1>
+        <p data-reveal style="--delay: 180ms">
+          Share the idea, the problem, or the product you want to improve. We will help you turn it
+          into a clear next step.
+        </p>
+
+        <div class="contact-actions" data-reveal style="--delay: 260ms">
+          <app-button label="Schedule a meeting" (click)="calendar.open()" />
+          <app-button
+            href="mailto:hello@redtekk.com?subject=Project%20inquiry"
+            variant="ghost"
+            label="Email us"
+            [showArrow]="false"
+          />
+        </div>
+      </div>
+
+      <aside class="contact-panel" data-reveal="scale" style="--delay: 320ms">
+        <span class="contact-panel-label">Start here</span>
+        <h2>hello@redtekk.com</h2>
+        <p>
+          Send us a short brief, a rough idea, or a few links. We usually reply within 4 hours on
+          business days.
+        </p>
+
+        <div class="contact-panel-meta">
+          <div>
+            <span>Based in</span>
+            <strong>Novi Sad, Serbia</strong>
+          </div>
+          <div>
+            <span>Best for</span>
+            <strong>Software, AI, websites, automation</strong>
+          </div>
+          <div>
+            <span>Working style</span>
+            <strong>Senior team, direct communication</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ways to reach us</span>
+        <h2>Pick the path that fits your moment.</h2>
+        <p>
+          Whether you already have a scope or only a rough direction, the fastest way forward is a
+          short, honest conversation.
+        </p>
+      </div>
+
+      <div class="contact-method-grid">
+        <article class="contact-method" data-reveal>
+          <span>01</span>
+          <h3>Email the studio</h3>
+          <p>Good for briefs, RFPs, existing product notes, or anything that needs a thoughtful reply.</p>
+          <a href="mailto:hello@redtekk.com?subject=Project%20inquiry">hello@redtekk.com</a>
+        </article>
+
+        <article class="contact-method" data-reveal style="--delay: 80ms">
+          <span>02</span>
+          <h3>Schedule a meeting</h3>
+          <p>Good when you want to talk through scope, budget, timeline, or whether we are a fit.</p>
+          <button type="button" (click)="calendar.open()">Open calendar</button>
+        </article>
+
+        <article class="contact-method" data-reveal style="--delay: 160ms">
+          <span>03</span>
+          <h3>Bring the messy version</h3>
+          <p>Early ideas are welcome. We can help turn a loose concept into a practical product plan.</p>
+          <strong>No polished brief needed</strong>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-next">
+    <div class="container contact-next-inner">
+      <div class="contact-next-copy" data-reveal>
+        <span class="eyebrow">What happens next</span>
+        <h2>A simple first conversation.</h2>
+      </div>
+
+      <div class="contact-next-list">
+        <div data-reveal style="--delay: 80ms">
+          <span>01</span>
+          <p>We read your note and ask for any missing context.</p>
+        </div>
+        <div data-reveal style="--delay: 160ms">
+          <span>02</span>
+          <p>We talk through the goal, risks, timeline, and budget range.</p>
+        </div>
+        <div data-reveal style="--delay: 240ms">
+          <span>03</span>
+          <p>You get a clear recommendation for the best next step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

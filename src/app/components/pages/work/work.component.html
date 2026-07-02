@@ -1,0 +1,55 @@
+<main class="work-page" appRedtekkMotion>
+  <section class="work-hero" data-screen-label="Our Work">
+    <div class="bg-grid drift" aria-hidden="true"></div>
+    <div class="work-hero-glow work-hero-glow-a" aria-hidden="true"></div>
+    <div class="work-hero-glow work-hero-glow-b" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <div class="container work-hero-inner">
+      <a routerLink="/" class="work-back" data-reveal>Back to home</a>
+
+      <div class="work-hero-copy">
+        <span class="eyebrow" data-reveal>Selected work</span>
+        <h1 data-reveal style="--delay: 100ms">Projects we have shipped and stood behind.</h1>
+        <p data-reveal style="--delay: 180ms">
+          A look at the products, platforms, and storefronts built throughout the professional
+          journey of the people behind Redtekk. Some names are public, a few stay under NDA.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="work-page-section">
+    <div class="container">
+      <div class="work-page-grid">
+        @for (project of projects; track project.name; let i = $index) {
+          <article class="work-card" [class.is-nda]="project.nda" data-reveal [style.--delay.ms]="(i % 3) * 80">
+            <div class="work-media">
+              @if (project.nda) {
+                <div class="work-nda" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                  <span>Under NDA</span>
+                </div>
+              } @else {
+                <img [src]="project.image" [alt]="project.name" loading="lazy" />
+              }
+            </div>
+            <div class="work-body">
+              <span class="work-tag">{{ project.category }}</span>
+              <h3>{{ project.name }} <span class="work-sub">· {{ project.description }}</span></h3>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="container about-cta-inner" data-reveal>
+      <span class="eyebrow">Build with us</span>
+      <h2>Have a project that belongs on this list?</h2>
+      <p>Bring the idea. We will help shape it, build it, and make it ready for the people who need it.</p>
+      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+    </div>
+  </section>
+</main>
