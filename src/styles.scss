@@ -67,7 +67,11 @@ body {
   background: var(--bg-0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip (not hidden) so the x-axis is clipped without the CSS rule that
+     promotes overflow-y to `auto` — `hidden` here made body its own scroll
+     container, producing a second (inner) vertical scrollbar next to the
+     viewport one. html already clips x-overflow for the whole page. */
+  overflow-x: clip;
   font-feature-settings: "ss01", "cv11";
 }
 
