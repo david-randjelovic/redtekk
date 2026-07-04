@@ -8,17 +8,13 @@
     </div>
 
     <div class="services-grid">
-      @for (service of modal.services; track service.id; let i = $index) {
-        <article
+      @for (service of catalog.services; track service.id; let i = $index) {
+        <a
           class="service-card"
           data-reveal
           [style.--delay.ms]="(i % 3) * 80"
-          role="button"
-          tabindex="0"
+          [routerLink]="['/services', service.id]"
           [attr.aria-label]="'Learn more about ' + service.title"
-          (click)="modal.open(service)"
-          (keydown.enter)="modal.open(service)"
-          (keydown.space)="$event.preventDefault(); modal.open(service)"
         >
           <div class="service-icon" aria-hidden="true" [innerHTML]="service.icon"></div>
           <h3>{{ service.title }}</h3>
@@ -27,48 +23,8 @@
             <span>{{ service.num }} → {{ service.label }}</span>
             <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
           </div>
-        </article>
+        </a>
       }
     </div>
   </div>
-
-  @if (modal.active(); as service) {
-    <div class="service-modal-backdrop" (click)="modal.close()">
-      <div
-        class="service-modal"
-        role="dialog"
-        aria-modal="true"
-        [attr.aria-label]="service.title + ' service'"
-        (click)="$event.stopPropagation()"
-      >
-        <button class="service-modal-close" type="button" aria-label="Close" (click)="modal.close()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
-        </button>
-
-        <div class="service-modal-head">
-          <div class="service-icon" aria-hidden="true" [innerHTML]="service.icon"></div>
-          <span class="eyebrow">Service {{ service.num }} · {{ service.label }}</span>
-          <h3>{{ service.title }}</h3>
-        </div>
-
-        <p class="service-modal-lead">{{ service.intro }}</p>
-
-        <div class="service-modal-includes">
-          <span class="service-modal-includes-label">What's included</span>
-          <ul>
-            @for (item of service.includes; track item) {
-              <li>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 5" /></svg>
-                <span>{{ item }}</span>
-              </li>
-            }
-          </ul>
-        </div>
-
-        <div class="service-modal-foot" (click)="modal.close()">
-          <app-button href="#contact" label="Start a project" />
-        </div>
-      </div>
-    </div>
-  }
 </section>

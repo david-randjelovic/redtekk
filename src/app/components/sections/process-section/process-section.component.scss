@@ -1,3 +1,8 @@
 :host {
   display: contents;
 }
+
+.process-view-all {
+  margin-top: 0;
+  margin-bottom: clamp(28px, 3vw, 44px);
+}

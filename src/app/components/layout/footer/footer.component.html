@@ -13,7 +13,7 @@
             @for (link of column.links; track link.label) {
               <li>
                 @if (link.serviceId) {
-                  <button type="button" class="footer-link-btn" (click)="modal.openById(link.serviceId)">{{ link.label }}</button>
+                  <a [routerLink]="['/services', link.serviceId]">{{ link.label }}</a>
                 } @else if (link.action === 'calendar') {
                   <button type="button" class="footer-link-btn" (click)="calendar.open()">{{ link.label }}</button>
                 } @else if (link.action === 'cookies') {

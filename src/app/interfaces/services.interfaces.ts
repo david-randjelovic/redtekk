@@ -1,7 +1,7 @@
 import { SafeHtml } from '@angular/platform-browser';
 
-export interface ServiceDetail {
-  /** Stable identifier used to open the matching detail modal. */
+export interface ServiceSummary {
+  /** Slug used to link to the matching service detail page (/services/:id). */
   id: string;
   /** Two-digit ordinal, e.g. "01". */
   num: string;
@@ -11,10 +11,6 @@ export interface ServiceDetail {
   title: string;
   /** Short description shown on the card. */
   short: string;
-  /** Longer lead paragraph shown in the detail modal. */
-  intro: string;
-  /** Bullet list of what the service includes. */
-  includes: string[];
   /** Pre-sanitized inline SVG markup for the icon. */
   icon: SafeHtml;
 }

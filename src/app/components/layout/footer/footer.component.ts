@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { FooterColumn, FooterSocialLink } from '../../../interfaces/navigation.interfaces';
 import { CalendarModalService } from '../../../services/calendar-modal.service';
 import { CookieConsentService } from '../../../services/cookie-consent.service';
-import { ServicesModalService } from '../../../services/services-modal.service';
 import { BrandComponent } from '../brand/brand.component';
 
 @Component({
@@ -15,7 +14,6 @@ import { BrandComponent } from '../brand/brand.component';
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  protected readonly modal = inject(ServicesModalService);
   protected readonly calendar = inject(CalendarModalService);
   protected readonly cookies = inject(CookieConsentService);
 
