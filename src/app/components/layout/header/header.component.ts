@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, OnInit, PLATFORM_ID, inject } from '@angular/core';
 
 import { NavLink } from '../../../interfaces/navigation.interfaces';
 import { CalendarModalService } from '../../../services/calendar-modal.service';
@@ -43,8 +44,14 @@ export class HeaderComponent implements OnInit {
 
   protected isScrolled = false;
 
+  private readonly _platformId = inject(PLATFORM_ID);
+
   public ngOnInit(): void {
-    this.onWindowScroll();
+    // window only exists in the browser; during prerendering the initial
+    // "not scrolled" state is correct anyway.
+    if (isPlatformBrowser(this._platformId)) {
+      this.onWindowScroll();
+    }
   }
 
   @HostListener('window:scroll')

@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, OnDestroy, OnInit, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { WORK_PROJECTS } from '../../../data/work-projects';
@@ -15,6 +15,7 @@ const GAP = 18;
 })
 export class CaseStudiesSectionComponent implements OnInit, OnDestroy {
   private readonly _document = inject(DOCUMENT);
+  private readonly _platformId = inject(PLATFORM_ID);
 
   private _autoTimer: number | null = null;
   private _autoStopped = false;
@@ -75,13 +76,13 @@ export class CaseStudiesSectionComponent implements OnInit, OnDestroy {
   }
 
   private _startAuto(): void {
-    if (this._autoStopped) {
+    if (this._autoStopped || !isPlatformBrowser(this._platformId)) {
       return;
     }
 
     const view = this._document.defaultView;
 
-    if (!view || view.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    if (!view || view.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       return;
     }
 

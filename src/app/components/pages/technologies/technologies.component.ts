@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
@@ -13,7 +13,7 @@ import { TechnologyCategory } from '../../../interfaces/technologies.interfaces'
   styleUrl: './technologies.component.scss',
 })
 export class TechnologiesComponent implements OnInit {
-  private readonly _title = inject(Title);
+  private readonly _seo = inject(SeoService);
 
   protected readonly categories: ReadonlyArray<TechnologyCategory> = [
     {
@@ -35,6 +35,15 @@ export class TechnologiesComponent implements OnInit {
         { name: 'Angular', icon: 'assets/marquee-icons/angular.svg', note: 'Structured applications' },
         { name: 'TypeScript', icon: 'assets/marquee-icons/typescript.svg', note: 'Typed product code' },
         { name: 'JavaScript', icon: 'assets/marquee-icons/javascript.svg', note: 'Web fundamentals' },
+      ],
+    },
+    {
+      title: 'Design',
+      description: 'Interface design, brand assets, and the visuals behind every build.',
+      items: [
+        { name: 'Figma', icon: 'assets/marquee-icons/figma.svg', note: 'Product and UI design' },
+        { name: 'Illustrator', icon: 'assets/marquee-icons/adobeillustrator.svg', note: 'Logos and vector work' },
+        { name: 'Photoshop', icon: 'assets/marquee-icons/adobephotoshop.svg', note: 'Image editing and assets' },
       ],
     },
     {
@@ -105,6 +114,11 @@ export class TechnologiesComponent implements OnInit {
     .slice(0, 14);
 
   public ngOnInit(): void {
-    this._title.setTitle('Technologies We Use | RedTekk');
+    this._seo.apply({
+      title: 'Technologies We Use | Redtekk',
+      description:
+        'The stack behind our work: Angular, React, Node.js, Laravel, PostgreSQL, AI tooling, and the design and testing tools we rely on daily.',
+      path: '/technologies',
+    });
   }
 }

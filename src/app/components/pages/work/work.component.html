@@ -10,35 +10,76 @@
 
       <div class="work-hero-copy">
         <span class="eyebrow" data-reveal>Selected work</span>
-        <h1 data-reveal style="--delay: 100ms">Projects we have shipped and stood behind.</h1>
+        <h1 data-reveal style="--delay: 100ms">The track record behind Redtekk.</h1>
         <p data-reveal style="--delay: 180ms">
-          A look at the products, platforms, and storefronts built throughout the professional
-          journey of the people behind Redtekk. Some names are public, a few stay under NDA.
+          Redtekk is a young studio, but the experience behind it goes back years. These are
+          projects <a class="inline-link" routerLink="/about" fragment="founder">the people behind
+          Redtekk</a> shipped throughout their careers, before the studio existed: freelance work,
+          projects from their own past companies, and work done inside agency teams. Each case
+          study says which. Some names are public, a few stay under NDA.
         </p>
+
+        <div class="work-hero-stats" data-reveal style="--delay: 260ms">
+          <span><strong>{{ totalCount }}</strong> projects</span>
+          <span><strong>{{ publicCount }}</strong> public</span>
+          <span><strong>{{ ndaCount }}</strong> under NDA</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="work-page-section">
     <div class="container">
-      <div class="work-page-grid">
-        @for (project of projects; track project.name; let i = $index) {
-          <article class="work-card" [class.is-nda]="project.nda" data-reveal [style.--delay.ms]="(i % 3) * 80">
-            <div class="work-media">
-              @if (project.nda) {
-                <div class="work-nda" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
-                  <span>Under NDA</span>
-                </div>
-              } @else {
-                <img [src]="project.image" [alt]="project.name" loading="lazy" />
-              }
+      <div class="work-features">
+        @for (item of featured; track item.project.name; let i = $index) {
+          <a class="work-feature" [class.flip]="i % 2 === 1" [routerLink]="['/work', item.project.slug]" data-reveal>
+            <div class="work-feature-media">
+              <img [src]="item.project.image" [alt]="item.project.name" loading="lazy" />
             </div>
-            <div class="work-body">
-              <span class="work-tag">{{ project.category }}</span>
-              <h3>{{ project.name }} <span class="work-sub">· {{ project.description }}</span></h3>
+            <div class="work-feature-body">
+              <span class="work-feature-num" aria-hidden="true">{{ item.num }}</span>
+              <div class="work-feature-meta">
+                <span class="work-index">{{ item.num }}</span>
+                <span class="work-tag">{{ item.project.category }}</span>
+              </div>
+              <h2>{{ item.project.name }}</h2>
+              <p>{{ item.project.description }}</p>
+              <span class="work-view-all">View case study</span>
             </div>
-          </article>
+          </a>
+        }
+      </div>
+
+      <div class="work-masonry">
+        @for (item of gridProjects; track item.project.name; let i = $index) {
+          @if (item.project.nda) {
+            <a class="work-item work-item-nda" [routerLink]="['/work', item.project.slug]" data-reveal [style.--delay.ms]="(i % 3) * 70">
+              <div class="work-item-nda-head">
+                <span class="work-index">{{ item.num }}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+              </div>
+              <div class="work-redacted" aria-hidden="true">
+                <span style="--w: 72%"></span>
+                <span style="--w: 46%"></span>
+              </div>
+              <div class="work-item-body">
+                <span class="work-tag">{{ item.project.category }}</span>
+                <h3>{{ item.project.name }} <span class="work-sub">· {{ item.project.description }}</span></h3>
+                <span class="work-nda-label">Under NDA</span>
+              </div>
+            </a>
+          } @else {
+            <a class="work-item" [routerLink]="['/work', item.project.slug]" data-reveal [style.--delay.ms]="(i % 3) * 70">
+              <div class="work-item-media">
+                <img [src]="item.project.image" [alt]="item.project.name" loading="lazy" />
+                <span class="work-index work-index-overlay">{{ item.num }}</span>
+              </div>
+              <div class="work-item-body">
+                <span class="work-tag">{{ item.project.category }}</span>
+                <h3>{{ item.project.name }} <span class="work-sub">· {{ item.project.description }}</span></h3>
+              </div>
+            </a>
+          }
         }
       </div>
     </div>

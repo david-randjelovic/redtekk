@@ -1,0 +1,138 @@
+@if (project(); as project) {
+  @if (detail(); as detail) {
+    <main class="work-page" appRedtekkMotion>
+      <section class="work-hero" [attr.data-screen-label]="project.name">
+        <div class="bg-grid drift" aria-hidden="true"></div>
+        <div class="work-hero-glow work-hero-glow-a" aria-hidden="true"></div>
+        <div class="work-hero-glow work-hero-glow-b" aria-hidden="true"></div>
+        <div class="bg-noise" aria-hidden="true"></div>
+
+        <div class="container work-hero-inner">
+          <a routerLink="/work" class="work-back" data-reveal>All work</a>
+
+          <div class="wd-hero-grid">
+            <div class="wd-hero-copy">
+              <div class="wd-meta" data-reveal>
+                <span class="eyebrow">{{ project.category }}</span>
+                @if (project.nda) {
+                  <span class="wd-nda-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                    Under NDA
+                  </span>
+                }
+              </div>
+              <h1 data-reveal style="--delay: 100ms">{{ project.name }}</h1>
+              <p class="wd-tagline" data-reveal style="--delay: 160ms">{{ detail.tagline }}</p>
+              <p class="wd-summary" data-reveal style="--delay: 220ms">{{ detail.summary }}</p>
+            </div>
+
+            <div class="wd-hero-media" data-reveal="scale" style="--delay: 200ms">
+              @if (project.nda) {
+                <div class="wd-nda-panel" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                  <div class="work-redacted">
+                    <span style="--w: 78%"></span>
+                    <span style="--w: 52%"></span>
+                    <span style="--w: 64%"></span>
+                  </div>
+                  <span class="work-nda-label">Details under NDA</span>
+                </div>
+              } @else {
+                <img [src]="project.image" [alt]="project.name" />
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-page-section">
+        <div class="container">
+          <div class="wd-credits" data-reveal>
+            <div class="wd-credit">
+              <span class="wd-label">Context</span>
+              <p>{{ detail.attribution }}</p>
+            </div>
+            <div class="wd-credit">
+              <span class="wd-label">Role</span>
+              <p>{{ detail.role }}</p>
+            </div>
+            <div class="wd-credit">
+              <span class="wd-label">Stack</span>
+              <p class="wd-stack-line">
+                @for (tech of detail.stack; track tech; let last = $last) {
+                  {{ tech }}@if (!last) {<span class="wd-dot"> · </span>}
+                }
+              </p>
+            </div>
+            @if (detail.liveUrl) {
+              <div class="wd-credit">
+                <span class="wd-label">Live</span>
+                <p><a class="wd-live-link" [href]="detail.liveUrl" target="_blank" rel="noopener">{{ detail.liveUrl.replace('https://', '').replace('www.', '') }}</a></p>
+              </div>
+            }
+          </div>
+
+          <div class="wd-story">
+            <div class="wd-story-row" data-reveal>
+              <span class="wd-story-label">The problem</span>
+              <p>{{ detail.problem }}</p>
+            </div>
+            <div class="wd-story-row" data-reveal>
+              <span class="wd-story-label">The solution</span>
+              <p>{{ detail.solution }}</p>
+            </div>
+          </div>
+
+          <div class="wd-built">
+            <div class="wd-section-head" data-reveal>
+              <span class="eyebrow">Inside the build</span>
+            </div>
+
+            @for (feature of detail.features; track feature.title; let i = $index) {
+              <div class="wd-feature-row" data-reveal [style.--delay.ms]="i * 60">
+                <span class="wd-feature-num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.text }}</p>
+              </div>
+            }
+          </div>
+
+          <div class="wd-results">
+            <div class="wd-section-head" data-reveal>
+              <span class="eyebrow">Results</span>
+            </div>
+
+            <div class="wd-stats">
+              @for (stat of detail.stats; track stat.label; let i = $index) {
+                <div class="wd-stat" data-reveal [style.--delay.ms]="i * 90">
+                  <strong>{{ stat.prefix }}<span [attr.data-count]="stat.value">0</span>{{ stat.suffix }}</strong>
+                  <span class="wd-stat-label">{{ stat.label }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          @if (nextProject(); as next) {
+            <a class="wd-next" [routerLink]="['/work', next.slug]" data-reveal>
+              <span class="wd-label">Next project</span>
+              <span class="wd-next-name">
+                {{ next.name }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+              </span>
+              <span class="wd-next-sub">{{ next.description }}</span>
+            </a>
+          }
+        </div>
+      </section>
+
+      <section class="about-cta">
+        <div class="container about-cta-inner" data-reveal>
+          <span class="eyebrow">Build with us</span>
+          <h2>Want something like this?</h2>
+          <p>Tell us what you are building. We will tell you how we would build it.</p>
+          <app-button label="Schedule a meeting" (click)="calendar.open()" />
+        </div>
+      </section>
+    </main>
+  }
+}

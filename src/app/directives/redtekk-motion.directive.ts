@@ -102,7 +102,6 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
   }
 
   private _initCountUp(): void {
-    const elements = this._queryAll<HTMLElement>('[data-count]');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -138,8 +137,36 @@ export class RedtekkMotionDirective implements AfterViewInit, OnDestroy {
       { threshold: 0.5 },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    const observeCountElements = (root: ParentNode): void => {
+      root.querySelectorAll<HTMLElement>('[data-count]').forEach((element) => observer.observe(element));
+    };
+
+    observeCountElements(this._elementRef.nativeElement);
+
+    // Same reuse caveat as the scroll reveal above: param-only route changes
+    // (e.g. the "next project" link on case studies) swap out @for-rendered
+    // [data-count] elements without re-running ngAfterViewInit, so watch for
+    // the replacements and observe them too - otherwise the numbers stay at 0.
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) {
+            return;
+          }
+
+          if (node.hasAttribute('data-count')) {
+            observer.observe(node);
+          }
+
+          observeCountElements(node);
+        });
+      });
+    });
+
+    mutationObserver.observe(this._elementRef.nativeElement, { childList: true, subtree: true });
+
     this._intersectionObservers.push(observer);
+    this._cleanupHandlers.push(() => mutationObserver.disconnect());
   }
 
   private _initProcessTimeline(): void {

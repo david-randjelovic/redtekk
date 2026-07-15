@@ -4,7 +4,7 @@
     <div class="section-head" data-reveal>
       <span class="eyebrow">Selected work</span>
       <h2>Experience that speaks for itself.</h2>
-      <p>A selection of projects completed throughout the professional journey of the people behind Redtekk.</p>
+      <p>Projects the people behind Redtekk shipped throughout their careers, before the studio existed.</p>
       <a routerLink="/work" class="work-view-all">View all work</a>
     </div>
 
@@ -12,7 +12,7 @@
       <div class="work-viewport">
         <div class="work-track" [style.transform]="trackTransform()">
           @for (project of projects; track project.name) {
-            <article class="work-card" [class.is-nda]="project.nda" [style.flex]="'0 0 ' + slideBasis()">
+            <a class="work-card" [class.is-nda]="project.nda" [routerLink]="['/work', project.slug]" [style.flex]="'0 0 ' + slideBasis()">
               <div class="work-media">
                 @if (project.nda) {
                   <div class="work-nda" aria-hidden="true">
@@ -27,7 +27,7 @@
                 <span class="work-tag">{{ project.category }}</span>
                 <h3>{{ project.name }} <span class="work-sub">· {{ project.description }}</span></h3>
               </div>
-            </article>
+            </a>
           }
         </div>
       </div>

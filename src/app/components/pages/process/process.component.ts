@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
@@ -14,7 +14,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
   templateUrl: './process.component.html',
 })
 export class ProcessComponent implements OnInit {
-  private readonly _title = inject(Title);
+  private readonly _seo = inject(SeoService);
 
   protected readonly calendar = inject(CalendarModalService);
 
@@ -82,6 +82,11 @@ export class ProcessComponent implements OnInit {
   ];
 
   public ngOnInit(): void {
-    this._title.setTitle('Our Process | RedTekk');
+    this._seo.apply({
+      title: 'Our Process | Redtekk',
+      description:
+        'How we take a product from the first conversation to launch and beyond: scoping, design, build, review, and long-term support, step by step.',
+      path: '/process',
+    });
   }
 }

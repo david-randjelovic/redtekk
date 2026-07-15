@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
+import { SeoService } from '../../../services/seo.service';
 import { CaseStudiesSectionComponent } from '../../sections/case-studies-section/case-studies-section.component';
 import { FinalCtaSectionComponent } from '../../sections/final-cta-section/final-cta-section.component';
 import { HeroSectionComponent } from '../../sections/hero-section/hero-section.component';
@@ -25,4 +26,13 @@ import { TrustSectionComponent } from '../../sections/trust-section/trust-sectio
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  constructor() {
+    inject(SeoService).apply({
+      title: 'Custom Software Development Studio | Redtekk',
+      description:
+        'We design, build, and support custom software, web apps, and AI features that businesses rely on long after launch. A small senior studio from Novi Sad.',
+      path: '/',
+    });
+  }
+}

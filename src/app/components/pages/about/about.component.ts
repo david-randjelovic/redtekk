@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
@@ -14,7 +14,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
   templateUrl: './about.component.html',
 })
 export class AboutComponent implements OnInit {
-  private readonly _title = inject(Title);
+  private readonly _seo = inject(SeoService);
 
   protected readonly calendar = inject(CalendarModalService);
 
@@ -56,6 +56,11 @@ export class AboutComponent implements OnInit {
   ];
 
   public ngOnInit(): void {
-    this._title.setTitle('About Us | RedTekk');
+    this._seo.apply({
+      title: 'About Us | Redtekk',
+      description:
+        'Redtekk is a small software studio from Novi Sad, Serbia, founded by engineer David Ranđelović. Meet the people behind it and see how we work.',
+      path: '/about',
+    });
   }
 }

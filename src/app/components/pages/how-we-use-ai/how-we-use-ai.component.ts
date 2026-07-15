@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
@@ -14,7 +14,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
   templateUrl: './how-we-use-ai.component.html',
 })
 export class HowWeUseAiComponent implements OnInit {
-  private readonly _title = inject(Title);
+  private readonly _seo = inject(SeoService);
 
   protected readonly calendar = inject(CalendarModalService);
 
@@ -83,6 +83,11 @@ export class HowWeUseAiComponent implements OnInit {
   ];
 
   public ngOnInit(): void {
-    this._title.setTitle('How We Use AI | RedTekk');
+    this._seo.apply({
+      title: 'How We Use AI | Redtekk',
+      description:
+        'Where AI actually helps a business and where it does not. How we find the right use cases and ship practical AI features that save real time.',
+      path: '/how-we-use-ai',
+    });
   }
 }

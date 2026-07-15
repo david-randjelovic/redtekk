@@ -31,6 +31,13 @@ export const routes: Routes = [
       import('./components/pages/work/work.component').then((component) => component.WorkComponent),
   },
   {
+    path: 'work/:id',
+    loadComponent: () =>
+      import('./components/pages/work-detail/work-detail.component').then(
+        (component) => component.WorkDetailComponent,
+      ),
+  },
+  {
     path: 'process',
     loadComponent: () =>
       import('./components/pages/process/process.component').then(
