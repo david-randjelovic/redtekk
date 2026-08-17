@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SERVICE_PAGES } from '../../../data/service-pages';
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
 import { CalendarModalService } from '../../../services/calendar-modal.service';
-import { SeoService, toMetaDescription } from '../../../services/seo.service';
+import { SITE_URL, SeoService, toMetaDescription } from '../../../services/seo.service';
 import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
@@ -38,10 +38,31 @@ export class ServiceDetailComponent {
         return;
       }
 
+      const url = `${SITE_URL}/services/${service.slug}`;
+
       this._seo.apply({
         title: `${service.title} | Redtekk`,
         description: toMetaDescription(service.intro),
         path: `/services/${service.slug}`,
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: service.title,
+            description: service.intro,
+            url,
+            areaServed: 'Worldwide',
+            provider: { '@type': 'Organization', name: 'Redtekk', url: SITE_URL },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: service.title, item: url },
+            ],
+          },
+        ],
       });
     });
   }

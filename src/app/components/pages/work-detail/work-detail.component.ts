@@ -6,7 +6,7 @@ import { WORK_PROJECT_DETAILS } from '../../../data/work-project-details';
 import { WORK_PROJECTS } from '../../../data/work-projects';
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
 import { CalendarModalService } from '../../../services/calendar-modal.service';
-import { SeoService, toMetaDescription } from '../../../services/seo.service';
+import { SITE_URL, SeoService, toMetaDescription } from '../../../services/seo.service';
 import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
@@ -66,6 +66,15 @@ export class WorkDetailComponent {
         description: toMetaDescription(detail.summary),
         path: `/work/${project.slug}`,
         image: project.image,
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: `${SITE_URL}/work` },
+            { '@type': 'ListItem', position: 3, name: project.name, item: `${SITE_URL}/work/${project.slug}` },
+          ],
+        },
       });
     });
   }

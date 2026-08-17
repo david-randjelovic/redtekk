@@ -78,7 +78,7 @@ export class HowWeUseAiComponent implements OnInit {
     {
       eyebrow: 'Ownership',
       title: 'The team remains accountable.',
-      text: 'AI speeds up parts of the work, but RedTekk engineers are responsible for what gets shipped.',
+      text: 'AI speeds up parts of the work, but Redtekk engineers are responsible for what gets shipped.',
     },
   ];
 

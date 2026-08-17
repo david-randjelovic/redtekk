@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { SeoService } from '../../../services/seo.service';
+import { SeoService, SITE_URL } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { WORK_PROJECTS } from '../../../data/work-projects';
@@ -45,6 +45,28 @@ export class WorkComponent implements OnInit {
       description:
         'From marketplaces and ERPs to solar platforms and online stores: case studies from the careers of the people behind Redtekk.',
       path: '/work',
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: `${SITE_URL}/work` },
+          ],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Redtekk case studies',
+          numberOfItems: WORK_PROJECTS.length,
+          itemListElement: WORK_PROJECTS.map((project, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: project.name,
+            url: `${SITE_URL}/work/${project.slug}`,
+          })),
+        },
+      ],
     });
   }
 

@@ -1,4 +1,22 @@
-@if (href()) {
+@if (route()) {
+  <a [class]="classes()" [routerLink]="route()" [attr.aria-label]="resolvedAriaLabel()">
+    <span class="btn-label">{{ label() }}</span>
+    @if (showArrow()) {
+      <svg
+        class="arrow"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 8h10M9 4l4 4-4 4" />
+      </svg>
+    }
+  </a>
+} @else if (href()) {
   <a
     [class]="classes()"
     [href]="href()"

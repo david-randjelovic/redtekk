@@ -61,6 +61,15 @@ export class AboutComponent implements OnInit {
       description:
         'Redtekk is a small software studio from Novi Sad, Serbia, founded by engineer David Ranđelović. Meet the people behind it and see how we work.',
       path: '/about',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'David Ranđelović',
+        jobTitle: 'Founder & Lead Engineer',
+        url: 'https://davidrandjelovic.com',
+        worksFor: { '@type': 'Organization', name: 'Redtekk', url: 'https://redtekk.com' },
+        address: { '@type': 'PostalAddress', addressLocality: 'Novi Sad', addressCountry: 'RS' },
+      },
     });
   }
 }

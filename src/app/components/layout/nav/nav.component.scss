@@ -134,7 +134,9 @@
 .nav-burger-line {
   display: block;
   width: 18px;
-  height: 1.6px;
+  /* whole pixels only: fractional heights rasterize unevenly on mobile,
+     making the three lines look different thicknesses */
+  height: 2px;
   border-radius: 2px;
   background: var(--ink-1);
   transition:
@@ -144,7 +146,7 @@
 }
 
 .nav-burger.is-open .nav-burger-line:nth-child(1) {
-  transform: translateY(6.6px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .nav-burger.is-open .nav-burger-line:nth-child(2) {
@@ -153,7 +155,7 @@
 }
 
 .nav-burger.is-open .nav-burger-line:nth-child(3) {
-  transform: translateY(-6.6px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .mobile-nav-panel {
@@ -163,16 +165,53 @@
   display: flex;
   align-items: center;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 110px 24px 48px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-14px);
-  background: rgba(8, 8, 12, 0.96);
+  /* fully opaque, slightly blue-violet base so the page never shows through */
+  background: linear-gradient(180deg, #0d0c15 0%, #08080d 100%);
   transition:
     opacity 0.35s var(--ease-out),
     transform 0.4s var(--ease-out),
     visibility 0s linear 0.4s;
+}
+
+.mobile-nav-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mobile-nav-bg .bg-grid {
+  opacity: 0.5;
+}
+
+.mobile-nav-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.mobile-nav-glow-a {
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  top: -120px;
+  background: radial-gradient(circle, var(--red) 0%, transparent 62%);
+  opacity: 0.26;
+}
+
+.mobile-nav-glow-b {
+  width: 460px;
+  height: 460px;
+  left: -180px;
+  bottom: -160px;
+  background: radial-gradient(circle, var(--red-deep) 0%, transparent 64%);
+  opacity: 0.32;
 }
 
 .mobile-nav-panel.is-open {
@@ -187,6 +226,8 @@
 }
 
 .mobile-nav-links {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 4px;
   width: 100%;
@@ -264,6 +305,14 @@
   color: var(--ink);
   background: rgba(255, 255, 255, 0.05);
 }
+
+.mobile-nav-cta {
+  margin-top: 22px;
+  padding: 0 16px;
+}
+
+/* full-width button treatment lives in the global stylesheet because the
+   .btn element belongs to the app-button child component's encapsulation */
 
 @media (max-width: 991px) {
   :host {

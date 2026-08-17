@@ -62,6 +62,12 @@
   </button>
 
   <div class="mobile-nav-panel" id="mobile-nav-panel" [class.is-open]="isMobileOpen()">
+    <div class="mobile-nav-bg" aria-hidden="true">
+      <div class="bg-grid"></div>
+      <div class="mobile-nav-glow mobile-nav-glow-a"></div>
+      <div class="mobile-nav-glow mobile-nav-glow-b"></div>
+      <div class="bg-noise"></div>
+    </div>
     <ul class="mobile-nav-links">
       @for (link of links(); track link.label) {
         <li class="mobile-nav-item">
@@ -100,6 +106,10 @@
           }
         </li>
       }
+
+      <li class="mobile-nav-cta" (click)="closeMobileMenu()">
+        <app-button label="Get in touch" route="/contact" />
+      </li>
     </ul>
   </div>
 </nav>

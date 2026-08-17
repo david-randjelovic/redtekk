@@ -1,0 +1,35 @@
+<section class="faq" id="faq" data-screen-label="07 FAQ">
+  <div class="bg-glow red" aria-hidden="true"></div>
+  <div class="bg-glow deep" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">FAQ</span>
+      <h2>Answers to the questions we hear most.</h2>
+      <p>Short and honest. If yours is not here, ask us directly.</p>
+    </div>
+
+    <div class="faq-list">
+      @for (item of items; track item.question; let i = $index) {
+        <div class="faq-item" [class.is-open]="isOpen(i)" data-reveal [style.--delay.ms]="i * 50">
+          <button
+            type="button"
+            class="faq-trigger"
+            [attr.aria-expanded]="isOpen(i)"
+            [attr.aria-controls]="'faq-panel-' + i"
+            (click)="toggle(i)"
+          >
+            <span class="faq-num" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <span class="faq-q">{{ item.question }}</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-panel" [id]="'faq-panel-' + i" role="region">
+            <div class="faq-panel-inner">
+              <p>{{ item.answer }}</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

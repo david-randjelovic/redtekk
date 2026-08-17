@@ -83,6 +83,21 @@ body {
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 
+/* Router navigations cross-fade via the View Transitions API; slightly
+   longer than the browser default so the swap reads as intentional. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 .inline-link {
   color: var(--ink-1);
   text-decoration: underline;
@@ -481,6 +496,10 @@ section { position: relative; padding: clamp(72px, 10vw, 140px) 0; }
 
 .nav-links a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.04); }
 .nav-cta { display: flex; align-items: center; gap: 8px; justify-self: end; }
+
+/* CTA at the bottom of the mobile menu panel */
+.mobile-nav-cta app-button { display: block; }
+.mobile-nav-cta .btn { width: 100%; justify-content: center; }
 .nav-inner > app-brand { justify-self: start; }
 
 @media (max-width: 991px) {
@@ -1854,6 +1873,285 @@ section { position: relative; padding: clamp(72px, 10vw, 140px) 0; }
   font-weight: 500;
 }
 
+/* ---- contact form (inside the hero panel) ---- */
+
+.contact-form {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 8px;
+}
+
+.contact-field label {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.contact-field label em {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  color: var(--ink-4);
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 13px 15px;
+  font: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: rgba(7, 7, 10, 0.55);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: var(--ink-4);
+}
+
+.contact-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239a9aa6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  cursor: pointer;
+}
+
+.contact-field select option {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-field input:focus-visible,
+.contact-field select:focus-visible,
+.contact-field textarea:focus-visible {
+  outline: none;
+  border-color: oklch(0.62 0.21 18 / 0.65);
+  box-shadow: 0 0 0 3px oklch(0.62 0.21 18 / 0.14);
+}
+
+.contact-field input.is-invalid,
+.contact-field textarea.is-invalid {
+  border-color: oklch(0.62 0.21 18 / 0.75);
+}
+
+.contact-field-error {
+  font-size: 12.5px;
+  color: oklch(0.72 0.17 20);
+}
+
+/* honeypot: visually removed but present for bots */
+.contact-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.contact-form-error {
+  padding: 12px 15px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-1);
+  background: oklch(0.62 0.21 18 / 0.1);
+  border: 1px solid oklch(0.62 0.21 18 / 0.35);
+  border-radius: var(--radius-sm);
+}
+
+.contact-form-error a {
+  color: var(--red-bright);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-form app-button {
+  justify-self: start;
+  margin-top: 4px;
+}
+
+/* ---- success state ---- */
+
+.contact-success {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.contact-success-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  color: var(--red-bright);
+  background: var(--red-tint);
+  border: 1px solid oklch(0.62 0.21 18 / 0.4);
+  box-shadow: 0 0 30px oklch(0.62 0.21 18 / 0.25);
+  animation: contact-pop 0.55s var(--ease-out) both;
+}
+
+/* Two rings pulse outward once as the icon lands. */
+.contact-success-icon::before,
+.contact-success-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--red-bright);
+  pointer-events: none;
+  animation: contact-ring 1.3s var(--ease-out) 0.24s forwards;
+}
+
+.contact-success-icon::after {
+  animation-delay: 0.46s;
+}
+
+.contact-success-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Draw the checkmark stroke after the circle pops in. */
+.contact-success-icon svg path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: contact-check-draw 0.5s var(--ease-out) 0.34s forwards;
+}
+
+.contact-success h2 {
+  margin: 0;
+  font-size: clamp(26px, 2.4vw, 34px);
+  letter-spacing: -0.035em;
+  white-space: normal;
+}
+
+.contact-success p {
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.65;
+  max-width: 42ch;
+}
+
+.contact-success-again {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 6px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-bright);
+  transition: color 0.3s var(--ease-out);
+}
+
+.contact-success-again::after {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s var(--ease-out);
+}
+
+.contact-success-again:hover::after {
+  width: 30px;
+}
+
+/* Staggered entrance for the success message copy. */
+.contact-success h2 {
+  animation: contact-rise 0.5s var(--ease-out) 0.38s both;
+}
+
+.contact-success p {
+  animation: contact-rise 0.5s var(--ease-out) 0.48s both;
+}
+
+.contact-success-again {
+  animation: contact-rise 0.5s var(--ease-out) 0.58s both;
+}
+
+@keyframes contact-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes contact-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes contact-check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes contact-rise {
+  0% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-success-icon,
+  .contact-success-icon::before,
+  .contact-success-icon::after,
+  .contact-success-icon svg path,
+  .contact-success h2,
+  .contact-success p,
+  .contact-success-again {
+    animation: none;
+  }
+
+  .contact-success-icon svg path {
+    stroke-dashoffset: 0;
+  }
+}
+
 .contact-section {
   padding: clamp(76px, 9vw, 126px) 0;
 }
@@ -2506,7 +2804,12 @@ section { position: relative; padding: clamp(72px, 10vw, 140px) 0; }
 .founder-photo img {
   display: block;
   width: 100%;
+  /* Keep a stable near-square frame regardless of the source photo's ratio,
+     cropping a portrait shot around the face rather than letting it stretch tall. */
+  aspect-ratio: 1 / 1;
   height: auto;
+  object-fit: cover;
+  object-position: center 28%;
   filter: saturate(0.82) contrast(1.02);
   transition: filter 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
@@ -3428,6 +3731,14 @@ section { position: relative; padding: clamp(72px, 10vw, 140px) 0; }
   transform: translateX(2px);
 }
 
+/* the process section is fully centered, so its link centers too */
+.process-view-all {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ============================================================
    Testimonials
    ============================================================ */
@@ -4245,14 +4556,32 @@ footer::after {
 
 .work-item-nda:hover { border-color: oklch(0.55 0.18 18 / 0.35); }
 
-.work-item-nda-head {
+/* same treatment as the home slider NDA tile: centered lock + label,
+   so the card reads as "confidential" instead of "still loading" */
+.work-item-nda-media {
+  position: relative;
+  min-height: 190px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px 0;
+  justify-content: center;
+  gap: 12px;
+  padding: 26px 20px;
 }
 
-.work-item-nda-head svg { width: 20px; height: 20px; color: var(--ink-3); }
+.work-item-nda-media svg {
+  width: 34px;
+  height: 34px;
+  color: var(--ink-3);
+}
+
+.work-item-nda-text {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
 
 .work-redacted {
   display: grid;

@@ -79,7 +79,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     tagline: 'A planning tool that does the math for solar installers.',
     summary:
       'A web app for a solar company, built for the people who install the panels. It calculates system size, costs, and savings, measures roofs on a map, and generates client-ready reports.',
-    attribution: 'Built by David during his time at the PaprikArt agency, before Redtekk.',
+    attribution: 'Confidential client, built by David before Redtekk.',
     problem:
       'Installers did energy and cost calculations by hand. It was slow, easy to get wrong, and every client report had to be put together manually.',
     solution:
@@ -255,13 +255,13 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     ],
   },
   {
-    slug: 'fronius',
-    tagline: 'Solar software for the people who make the inverters.',
+    slug: 'pv-design',
+    tagline: 'Solar planning software for installers, end to end.',
     summary:
-      'Fronius is one of the biggest names in solar energy, with 37 subsidiaries worldwide. David worked on their web platform during his time at the PaprikArt agency, including Solar.creator, the tool installers use to plan a complete PV system from location to final report.',
-    attribution: 'Built by David while employed at the PaprikArt agency, before Redtekk.',
+      'An enterprise solar client, a global manufacturer with international subsidiaries, needed one guided tool for planning a complete PV system. David worked on their web platform before Redtekk, including the planner installers use to go from location to a final report.',
+    attribution: 'Confidential client, built by David before Redtekk.',
     problem:
-      'Planning a PV system means juggling location data, consumption, panel layout, inverter sizing, and profitability. Fronius wanted installers to do all of it in one guided flow, in any market, in any language.',
+      'Planning a PV system means juggling location data, consumption, panel layout, inverter sizing, and profitability. The company wanted installers to do all of it in one guided flow, in any market, in any language.',
     solution:
       'A step-by-step planner: pin the project on a map, pull solar irradiance for that exact spot, lay out the PV arrays, size the inverter, and finish with a report and profitability numbers the customer understands.',
     features: [
@@ -363,11 +363,11 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     ],
   },
   {
-    slug: 'aeg',
+    slug: 'solar-operations',
     tagline: 'One screen for every solar plant.',
     summary:
-      'A solar monitoring platform built under the AEG brand, a project David worked on during his time at the PaprikArt agency. Plant owners and operators watch their plants, live electrical values, weather, and savings in real time, in one place.',
-    attribution: 'Built by David while employed at the PaprikArt agency, before Redtekk.',
+      'A solar monitoring platform David worked on before Redtekk. Plant owners and operators watch their plants, live electrical values, weather, and savings in real time, in one place.',
+    attribution: 'Confidential client, built by David before Redtekk.',
     problem:
       'Data about the plants and their inverters lived in separate tools. Operators jumped between systems to check electrical values, weather, and earnings, and problems surfaced late.',
     solution:

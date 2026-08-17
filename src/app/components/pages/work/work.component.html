@@ -13,8 +13,8 @@
         <h1 data-reveal style="--delay: 100ms">The track record behind Redtekk.</h1>
         <p data-reveal style="--delay: 180ms">
           Redtekk is a young studio, but the experience behind it goes back years. These are
-          projects <a class="inline-link" routerLink="/about" fragment="founder">the people behind
-          Redtekk</a> shipped throughout their careers, before the studio existed: freelance work,
+          projects the people behind Redtekk shipped throughout their careers, before the studio
+          existed: freelance work,
           projects from their own past companies, and work done inside agency teams. Each case
           study says which. Some names are public, a few stay under NDA.
         </p>
@@ -54,18 +54,14 @@
         @for (item of gridProjects; track item.project.name; let i = $index) {
           @if (item.project.nda) {
             <a class="work-item work-item-nda" [routerLink]="['/work', item.project.slug]" data-reveal [style.--delay.ms]="(i % 3) * 70">
-              <div class="work-item-nda-head">
-                <span class="work-index">{{ item.num }}</span>
+              <div class="work-item-nda-media">
+                <span class="work-index work-index-overlay">{{ item.num }}</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
-              </div>
-              <div class="work-redacted" aria-hidden="true">
-                <span style="--w: 72%"></span>
-                <span style="--w: 46%"></span>
+                <span class="work-item-nda-text">Under NDA</span>
               </div>
               <div class="work-item-body">
                 <span class="work-tag">{{ item.project.category }}</span>
                 <h3>{{ item.project.name }} <span class="work-sub">· {{ item.project.description }}</span></h3>
-                <span class="work-nda-label">Under NDA</span>
               </div>
             </a>
           } @else {
@@ -90,7 +86,7 @@
       <span class="eyebrow">Build with us</span>
       <h2>Have a project that belongs on this list?</h2>
       <p>Bring the idea. We will help shape it, build it, and make it ready for the people who need it.</p>
-      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+      <app-button label="Get in touch" route="/contact" />
     </div>
   </section>
 </main>

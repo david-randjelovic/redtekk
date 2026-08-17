@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { WORK_PROJECTS } from '../../../data/work-projects';
@@ -13,12 +13,14 @@ const GAP = 18;
   templateUrl: './case-studies-section.component.html',
   styleUrl: './case-studies-section.component.scss',
 })
-export class CaseStudiesSectionComponent implements OnInit, OnDestroy {
+export class CaseStudiesSectionComponent implements AfterViewInit, OnDestroy {
   private readonly _document = inject(DOCUMENT);
   private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   private _autoTimer: number | null = null;
   private _autoStopped = false;
+  private _visibilityObserver: IntersectionObserver | null = null;
 
   protected readonly projects = WORK_PROJECTS;
 
@@ -41,11 +43,44 @@ export class CaseStudiesSectionComponent implements OnInit, OnDestroy {
     return `translateX(calc(-${this.index()} * ${step}))`;
   });
 
-  public ngOnInit(): void {
-    this._startAuto();
+  public ngAfterViewInit(): void {
+    // Only autoplay while the slider is on screen, so a visitor who has not
+    // scrolled here yet still lands on the first slides instead of slide 4-5.
+    if (!isPlatformBrowser(this._platformId)) {
+      return;
+    }
+
+    const view = this._document.defaultView;
+
+    if (!view || !('IntersectionObserver' in view)) {
+      this._startAuto();
+      return;
+    }
+
+    // The host is `display: contents` (no box of its own), so observe the real
+    // inner section element instead, otherwise the observer never intersects.
+    const target = this._host.nativeElement.firstElementChild ?? this._host.nativeElement;
+
+    this._visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            this._startAuto();
+          } else {
+            this._clearAuto();
+          }
+        }
+      },
+      // Height-independent trigger: fire once the section is meaningfully into
+      // the viewport (a ratio threshold can never be met by a very tall section).
+      { threshold: 0, rootMargin: '0px 0px -20% 0px' },
+    );
+
+    this._visibilityObserver.observe(target);
   }
 
   public ngOnDestroy(): void {
+    this._visibilityObserver?.disconnect();
     this._clearAuto();
   }
 

@@ -34,7 +34,7 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Senior design review', text: 'Every screen is checked for hierarchy, accessibility, and brand consistency.' },
       { title: 'Handoff & specs', text: 'Developers receive organized files, specs, and assets ready for implementation.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Design work that holds up after launch.',
     whyText: 'Good design is not just how it looks on day one. We design for real content, real edge cases, and real growth, so the product still works a year from now.',
     whyCards: [
@@ -78,7 +78,7 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Code review', text: 'Every change is reviewed for correctness, performance, and security before merging.' },
       { title: 'Testing & release', text: 'Features are tested end to end and released through a controlled deployment process.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Software that keeps working after launch.',
     whyText: 'We build for maintainability first, so adding a feature next year does not turn into a rebuild. You get code your next developer can actually read.',
     whyCards: [
@@ -122,13 +122,13 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Senior review', text: 'Outputs and edge cases are tested by senior engineers before anything reaches a user.' },
       { title: 'Monitor & improve', text: 'We track usage and accuracy after launch and adjust based on real data.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Built to be reliable, not just impressive in a demo.',
     whyText: 'We test for edge cases and failure modes, set clear data-access rules, and keep a person accountable for what the feature does in production.',
     whyCards: [
       { eyebrow: 'Reliability', title: 'Tested beyond the happy path', text: 'We test edge cases, bad inputs, and failure modes, not only the ideal scenario.' },
       { eyebrow: 'Data', title: 'Careful with what the system sees', text: 'Access control and data handling are designed in from the start, not added later.' },
-      { eyebrow: 'Accountability', title: 'A person is always responsible', text: 'The feature assists the workflow. RedTekk engineers remain accountable for the outcome.' },
+      { eyebrow: 'Accountability', title: 'A person is always responsible', text: 'The feature assists the workflow. Redtekk engineers remain accountable for the outcome.' },
     ],
     ctaTitle: 'Curious where AI could actually help your business?',
     ctaText: 'We will help you separate the real opportunities from the hype, then build the smallest useful version first.',
@@ -166,7 +166,7 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Test failure cases', text: 'We deliberately test what happens when a service is slow, down, or returns bad data.' },
       { title: 'Monitor in production', text: 'Connections are monitored so issues are caught before they affect your business.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Connections that keep working when something goes wrong.',
     whyText: 'Most integration failures happen quietly. We design for visibility, so problems get flagged before they cost you data or revenue.',
     whyCards: [
@@ -210,7 +210,7 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Senior review', text: 'Each change is checked against the baseline to confirm it actually helped.' },
       { title: 'Repeat the loop', text: 'We re-measure and find the next highest-impact improvement.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Improvements you can actually measure.',
     whyText: 'Every change comes with a clear before-and-after comparison, so you see the real effect on speed, rankings, or conversions, not just a list of completed tasks.',
     whyCards: [
@@ -254,7 +254,7 @@ export const SERVICE_PAGES: ReadonlyArray<ServicePageContent> = [
       { title: 'Direct communication', text: 'You reach the same engineers directly, with no account manager layer.' },
       { title: 'Planning ahead', text: 'We flag upcoming risks and opportunities before they become urgent.' },
     ],
-    whyEyebrow: 'Why RedTekk',
+    whyEyebrow: 'Why Redtekk',
     whyTitle: 'Support that feels like an extension of your team.',
     whyText: 'You get direct access to the engineers who built your product, not a rotating support desk that relearns it every time.',
     whyCards: [

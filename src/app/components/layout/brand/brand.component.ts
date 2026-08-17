@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
 export class BrandComponent {
   /** Router path the brand links to. */
   public readonly link = input('/');
-  public readonly ariaLabel = input('RedTekk home');
+  public readonly ariaLabel = input('Redtekk home');
 }

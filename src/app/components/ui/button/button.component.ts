@@ -1,11 +1,12 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { ButtonSize, ButtonType, ButtonVariant } from '../../../interfaces/ui.interfaces';
 
 @Component({
   standalone: true,
   selector: 'app-button',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
@@ -13,6 +14,8 @@ export class ButtonComponent {
   public readonly variant = input<ButtonVariant>('primary');
   public readonly size = input<ButtonSize>('default');
   public readonly label = input('');
+  /** In-app route; rendered as a router link. Takes precedence over href. */
+  public readonly route = input<string | null>(null);
   public readonly href = input<string | null>(null);
   public readonly target = input<string | null>(null);
   public readonly rel = input<string | null>(null);

@@ -3,13 +3,14 @@ import { Component, ElementRef, HostListener, inject, input, signal } from '@ang
 import { RouterLink } from '@angular/router';
 
 import { NavLink } from '../../../interfaces/navigation.interfaces';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 const MOBILE_BREAKPOINT = 991;
 
 @Component({
   standalone: true,
   selector: 'app-site-nav',
-  imports: [RouterLink],
+  imports: [ButtonComponent, RouterLink],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
 })
@@ -86,6 +87,12 @@ export class NavComponent {
   }
 
   private _setScrollLock(locked: boolean): void {
-    this._document.body.style.overflow = locked ? 'hidden' : '';
+    const overflow = locked ? 'hidden' : '';
+
+    // Lock the root element too: on mobile browsers the document scrolls on
+    // <html>, so hiding overflow only on <body> still lets the page move
+    // behind the open menu.
+    this._document.documentElement.style.overflow = overflow;
+    this._document.body.style.overflow = overflow;
   }
 }

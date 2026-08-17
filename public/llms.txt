@@ -1,0 +1,28 @@
+# Redtekk
+
+> Redtekk is a software development studio based in Novi Sad, Serbia. It designs, builds, and supports custom software: websites, web applications, online stores, and AI features, for clients around the world. The studio is founded and led by engineer David Ranđelović, who works directly on every project.
+
+## Key facts
+
+- Founder and lead engineer: David Ranđelović (https://davidrandjelovic.com)
+- Location: Novi Sad, Serbia. Clients worldwide, remote collaboration, English-speaking
+- Contact: hello@redtekk.com
+- Services: design, development, AI solutions, integrations, optimization, support
+- Technology stack: Angular, React, Vue, TypeScript, Node.js, Laravel, PostgreSQL, MySQL, MongoDB, Shopify, Stripe, Webflow, Figma, and AI tooling
+- Portfolio note: the case studies on the site are projects the founder shipped throughout his career before Redtekk existed (freelance work, his previous company Xelpi-IT, and agency employment). Each case study states this context
+
+## Pages
+
+- [Home](https://redtekk.com/): what Redtekk does, services overview, selected work, FAQ
+- [Services: Design](https://redtekk.com/services/design): brand identity, website, and product UI design
+- [Services: Development](https://redtekk.com/services/development): websites, web applications, and mobile apps
+- [Services: AI Solutions](https://redtekk.com/services/ai): AI features, automation, smart search, and assistants
+- [Services: Integrations](https://redtekk.com/services/integrations): connecting products with third-party tools and APIs
+- [Services: Optimization](https://redtekk.com/services/optimization): performance, SEO, and conversion improvements
+- [Services: Support](https://redtekk.com/services/support): long-term maintenance and improvements after launch
+- [Work](https://redtekk.com/work): 13 case studies with problem, solution, stack, and results
+- [About](https://redtekk.com/about): the team, the founder, and how the studio works
+- [Process](https://redtekk.com/process): how projects run from first conversation to launch
+- [Technologies](https://redtekk.com/technologies): the full technology stack, grouped by use
+- [How we use AI](https://redtekk.com/how-we-use-ai): where AI helps in projects and where it does not
+- [Contact](https://redtekk.com/contact): email and meeting scheduling

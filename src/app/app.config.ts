@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 
@@ -18,6 +18,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
+      // Cross-fade between routes via the browser View Transitions API, so
+      // e.g. "next project" on a case study swaps smoothly instead of
+      // snapping. Browsers without support just navigate instantly. The
+      // initial load is skipped so it never fights hydration.
+      withViewTransitions({ skipInitialTransition: true }),
     )
   ]
 };

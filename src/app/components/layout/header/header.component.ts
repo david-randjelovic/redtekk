@@ -39,7 +39,8 @@ export class HeaderComponent implements OnInit {
         { label: 'How we use AI?', route: '/how-we-use-ai' },
       ],
     },
-    { label: 'Contact', route: '/contact' },
+    // No "Contact" link: the header CTA button (and the mobile panel CTA)
+    // already lead to /contact, a duplicate nav item would compete with it.
   ];
 
   protected isScrolled = false;

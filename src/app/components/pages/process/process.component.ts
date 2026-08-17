@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { SeoService } from '../../../services/seo.service';
+import { SeoService, SITE_URL } from '../../../services/seo.service';
 import { RouterLink } from '@angular/router';
 
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
@@ -87,6 +87,20 @@ export class ProcessComponent implements OnInit {
       description:
         'How we take a product from the first conversation to launch and beyond: scoping, design, build, review, and long-term support, step by step.',
       path: '/process',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: 'How Redtekk takes a product from first conversation to launch',
+        description:
+          'The six stages Redtekk works through on every project, from scoping the problem to supporting the product after launch.',
+        step: this.stages.map((stage, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: stage.title,
+          text: stage.text,
+          url: `${SITE_URL}/process#${stage.title.toLowerCase()}`,
+        })),
+      },
     });
   }
 }

@@ -27,6 +27,13 @@ export interface PageSeo {
   path: string;
   /** Absolute URL or app-relative asset path; falls back to the site-wide og image. */
   image?: string;
+  /**
+   * Page-scoped schema.org JSON-LD (FAQPage, Service, BreadcrumbList, ...).
+   * Replaced wholesale on every `apply()`, so navigating between pages never
+   * leaves stale schema behind. The site-wide Organization/WebSite schema
+   * lives in index.html instead.
+   */
+  jsonLd?: object | ReadonlyArray<object>;
 }
 
 /**
@@ -62,6 +69,7 @@ export class SeoService {
     this._meta.updateTag({ name: 'twitter:image', content: image });
 
     this._setCanonical(url);
+    this._setJsonLd(seo.jsonLd);
   }
 
   private _absoluteImage(image: string | undefined): string {
@@ -70,6 +78,27 @@ export class SeoService {
     }
 
     return image.startsWith('http') ? image : `${SITE_URL}/${image.replace(/^\//, '')}`;
+  }
+
+  private _setJsonLd(data: object | ReadonlyArray<object> | undefined): void {
+    this._document.head
+      .querySelectorAll('script[data-seo-jsonld]')
+      .forEach((script) => script.remove());
+
+    if (!data) {
+      return;
+    }
+
+    const items = Array.isArray(data) ? data : [data];
+
+    for (const item of items) {
+      const script = this._document.createElement('script');
+
+      script.type = 'application/ld+json';
+      script.setAttribute('data-seo-jsonld', '');
+      script.textContent = JSON.stringify(item);
+      this._document.head.appendChild(script);
+    }
   }
 
   private _setCanonical(url: string): void {

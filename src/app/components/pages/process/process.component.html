@@ -51,7 +51,12 @@
 
       <div class="proc-stage-list">
         @for (stage of stages; track stage.title; let i = $index) {
-          <article class="proc-stage" data-reveal [style.--delay.ms]="i * 60">
+          <article
+            class="proc-stage"
+            [id]="stage.title.toLowerCase()"
+            data-reveal
+            [style.--delay.ms]="i * 60"
+          >
             <span class="proc-stage-num">{{ stage.num }}</span>
             <div class="proc-stage-body">
               <h3>{{ stage.title }}</h3>
@@ -95,7 +100,7 @@
       <span class="eyebrow">Next step</span>
       <h2>Ready to see how this would work for your project?</h2>
       <p>Tell us what you are building. We will walk you through how each stage would actually apply.</p>
-      <app-button label="Schedule a meeting" (click)="calendar.open()" />
+      <app-button label="Get in touch" route="/contact" />
     </div>
   </section>
 </main>

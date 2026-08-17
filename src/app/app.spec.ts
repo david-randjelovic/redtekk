@@ -17,10 +17,10 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the RedTekk brand', () => {
+  it('should render the Redtekk brand', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('RedTekk');
+    expect(compiled.textContent).toContain('Redtekk');
   });
 });

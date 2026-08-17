@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
 
+import { FAQ_SCHEMA } from '../../../data/faq';
 import { RedtekkMotionDirective } from '../../../directives/redtekk-motion.directive';
 import { SeoService } from '../../../services/seo.service';
 import { CaseStudiesSectionComponent } from '../../sections/case-studies-section/case-studies-section.component';
+import { FaqSectionComponent } from '../../sections/faq-section/faq-section.component';
 import { FinalCtaSectionComponent } from '../../sections/final-cta-section/final-cta-section.component';
 import { HeroSectionComponent } from '../../sections/hero-section/hero-section.component';
 import { ProcessSectionComponent } from '../../sections/process-section/process-section.component';
@@ -15,6 +17,7 @@ import { TrustSectionComponent } from '../../sections/trust-section/trust-sectio
   selector: 'app-home',
   imports: [
     CaseStudiesSectionComponent,
+    FaqSectionComponent,
     FinalCtaSectionComponent,
     HeroSectionComponent,
     ProcessSectionComponent,
@@ -33,6 +36,7 @@ export class HomeComponent {
       description:
         'We design, build, and support custom software, web apps, and AI features that businesses rely on long after launch. A small senior studio from Novi Sad.',
       path: '/',
+      jsonLd: FAQ_SCHEMA,
     });
   }
 }
