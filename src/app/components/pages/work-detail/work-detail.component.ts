@@ -38,6 +38,26 @@ export class WorkDetailComponent {
     return WORK_PROJECT_DETAILS.find((entry) => entry.slug === slug);
   });
 
+  /**
+   * Attribution text split around the founder's name, so the name can render
+   * as a link to the founder section on /about while the rest stays plain text.
+   */
+  protected readonly attributionParts = computed(() => {
+    const attribution = this.detail()?.attribution ?? '';
+    const name = 'David';
+    const index = attribution.indexOf(name);
+
+    if (index === -1) {
+      return { before: attribution, name: '', after: '' };
+    }
+
+    return {
+      before: attribution.slice(0, index),
+      name,
+      after: attribution.slice(index + name.length),
+    };
+  });
+
   /** Previous/next project for footer navigation, wrapping around the list. */
   protected readonly nextProject = computed(() => {
     const current = this.project();

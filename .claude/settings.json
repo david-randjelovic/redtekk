@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm run build 2>&1)",
+      "Bash(grep -o 'Context</span>.\\\\{0,220\\\\}' dist/redtekk/browser/work/tim/index.html)",
+      "Bash(curl -s -m 20 http://localhost:4200/portfolio/the-summit-turks-caicos)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:4200/portfolio/the-summit-turks-caicos\" -UseBasicParsing -TimeoutSec 25; $r.StatusCode; $r.Content.Length } catch { \"ERR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"https://davidrandjelovic.com/portfolio/the-summit-turks-caicos\" -UseBasicParsing -TimeoutSec 25; $r.StatusCode; $r.Content.Length } catch { \"ERR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($roots = @\\(\"$env:USERPROFILE\\\\Desktop\",\"$env:USERPROFILE\\\\OneDrive\\\\Desktop\",\"D:\\\\Projects\"\\); foreach \\($r in $roots\\) { if \\(Test-Path $r\\) { Get-ChildItem $r -Directory -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName } })",
+      "Bash(cd \"D:/Projects/david\" && grep -rli \"turks\" --include=*.ts --include=*.html --include=*.json src 2>/dev/null | head -20; echo \"--- assets:\"; ls src/assets 2>/dev/null | head)",
+      "Read(//d/Projects/david/**)",
+      "PowerShell(foreach \\($u in @\\(\"https://thesummitturksandcaicos.com\",\"https://www.thesummittc.com\",\"https://summitturksandcaicos.com\"\\)\\) { try { $r = Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 12 -MaximumRedirection 3; \"$u => $\\($r.StatusCode\\) $\\($r.BaseResponse.ResponseUri\\)\" } catch { \"$u => ERR $\\($_.Exception.Message\\)\" } })"
+    ]
+  }
+}

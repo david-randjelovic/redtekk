@@ -50,7 +50,9 @@
           <div class="wd-credits" data-reveal>
             <div class="wd-credit">
               <span class="wd-label">Context</span>
-              <p>{{ detail.attribution }}</p>
+              @if (attributionParts(); as parts) {
+                <p>{{ parts.before }}@if (parts.name) {<a class="wd-founder-link" routerLink="/about" fragment="founder">{{ parts.name }}</a>}{{ parts.after }}</p>
+              }
             </div>
             <div class="wd-credit">
               <span class="wd-label">Role</span>

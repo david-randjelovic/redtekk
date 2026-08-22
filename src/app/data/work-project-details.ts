@@ -5,12 +5,12 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'herdspace',
     tagline: 'A marketplace where AI helps you find the right horse.',
     summary:
-      'HerdSpace is an online marketplace for the equestrian world. People use it to buy and sell horses, vehicles, and properties, and to find equestrian jobs. David built the platform and the AI search behind it.',
-    attribution: 'Freelance project, built by David independently of Redtekk.',
+      'HerdSpace is an online marketplace for the equestrian world. People use it to buy and sell horses, vehicles, and properties, and to find equestrian jobs. Redtekk built the platform and the AI search behind it.',
+    attribution: 'Built by Redtekk.',
     problem:
       'Horse marketplaces relied on rigid keyword filters. When a buyer described what they wanted in plain words, the results missed the point. HerdSpace wanted search that understands what the buyer actually means.',
     solution:
-      'David built the full platform: the storefront, the listing system, and an AI search engine that knows equestrian terminology. Buyers describe what they need in their own words and get matching listings back.',
+      'The full platform is custom built: the storefront, the listing system, and an AI search engine that knows equestrian terminology. Buyers describe what they need in their own words and get matching listings back.',
     features: [
       {
         title: 'AI search',
@@ -41,12 +41,12 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'tangle',
     tagline: 'A website that sells an AI ERP to manufacturers.',
     summary:
-      'Tangle makes an AI-powered ERP for manufacturing companies. David designed and built the website that explains the product and turns visitors into demo requests.',
+      'Tangle makes an AI-powered ERP for manufacturing companies. This is the website that explains the product and turns visitors into demo requests.',
     attribution: 'Freelance project, built by David independently of Redtekk.',
     problem:
       'The product is technical and the industry is skeptical. The site had to explain AI quoting in plain business terms and back it up with proof.',
     solution:
-      'David gave the site a clear structure: what the product does, case studies as proof, and a demo request within reach on every page. New leads flow into their tools automatically through Zapier.',
+      'The site got a clear structure: what the product does, case studies as proof, and a demo request within reach on every page. New leads flow into their tools automatically through Zapier.',
     features: [
       {
         title: 'Clear product story',
@@ -75,6 +75,42 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     liveUrl: 'https://www.tangle.io',
   },
   {
+    slug: 'the-summit',
+    tagline: 'A landing page that sells a villa before anyone visits the island.',
+    summary:
+      'The Summit is an ultra-luxury villa development on the highest peak of Providenciales, Turks & Caicos. This is the campaign landing page behind it: one long page that has to sell a multi-million-dollar residence on look and feel alone, then turn the visitor into a brochure request or a callback.',
+    attribution: 'Freelance project, built by David independently of Redtekk.',
+    problem:
+      'The page pulled in two directions. It is built almost entirely out of full-bleed photography, which is exactly what a page behind paid traffic cannot afford to be slow at. And someone weighing a multi-million-dollar purchase reads a long way before acting, so the conversion path had to stay present without breaking the calm, editorial tone of the design.',
+    solution:
+      'One long-form page with a full-bleed hero that sells the location immediately and both calls to action visible before any scrolling. Press placements and profiles of the developer and architect build credibility, carousels and a tabbed section cover the property in depth, and a brochure request form closes it out. Image sizing, formats, and lazy loading keep the page quick despite the photography.',
+    features: [
+      {
+        title: 'Hero that sells the view',
+        text: 'A full-bleed opening shot of the location, with the brochure request and the callback both reachable before a single scroll.',
+      },
+      {
+        title: 'Proof before the pitch',
+        text: 'Press placements, partner marks, and profiles of the developer and the architect establish trust early on the page.',
+      },
+      {
+        title: 'The property in depth',
+        text: 'Image carousels throughout, plus a tabbed section covering views, safety, utilities, and floorplans.',
+      },
+      {
+        title: 'A form that qualifies',
+        text: 'Name, email, phone, and preferred contact time go straight to the sales team, so the callback happens when the buyer wants it.',
+      },
+    ],
+    role: 'Front-end development',
+    stack: ['Webflow', 'JavaScript', 'CSS'],
+    stats: [
+      { value: 5, suffix: '', label: 'villas in the development' },
+      { value: 3, prefix: '$', suffix: 'M+', label: 'starting residence price' },
+      { value: 4, suffix: '', label: 'form fields to a qualified lead' },
+    ],
+  },
+  {
     slug: 'solar-planning',
     tagline: 'A planning tool that does the math for solar installers.',
     summary:
@@ -83,7 +119,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     problem:
       'Installers did energy and cost calculations by hand. It was slow, easy to get wrong, and every client report had to be put together manually.',
     solution:
-      'The team, with David as lead engineer, built a calculation engine behind a simple interface. Installers measure roofs by drawing on a map, see cost and savings projections instantly, and send out branded reports the app builds for them.',
+      'The team built a calculation engine behind a simple interface. Installers measure roofs by drawing on a map, see cost and savings projections instantly, and send out branded reports the app builds for them.',
     features: [
       {
         title: 'Calculation engine',
@@ -114,12 +150,12 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'befive',
     tagline: 'A home base for an esports organization.',
     summary:
-      'Befive is a professional esports organization. David rebuilt their website so teams, players, results, news, and events all live in one place.',
+      'Befive is a professional esports organization. A full rebuild of their website put teams, players, results, news, and events in one place.',
     attribution: 'Built by David through Xelpi-IT, the company he ran before Redtekk.',
     problem:
       'Content changed daily, traffic spiked during live events, and the old site could not keep up with either.',
     solution:
-      'David built a fast site with a CMS the team updates themselves, an event calendar, and fan tools like polls and leaderboards that give people a reason to come back.',
+      'A fast site with a CMS the team updates themselves, an event calendar, and fan tools like polls and leaderboards that give people a reason to come back.',
     features: [
       {
         title: 'Teams and players',
@@ -155,7 +191,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     problem:
       'Selling wine online comes with rules: age checks and regional shipping restrictions. The catalog also had to stay easy to search as it grew.',
     solution:
-      'David built the store with Webflow and Shopify: a full catalog with tasting notes, search and filtering, secure checkout, and the legal requirements built in from the start.',
+      'The store runs on Webflow and Shopify: a full catalog with tasting notes, search and filtering, secure checkout, and the legal requirements built in from the start.',
     features: [
       {
         title: 'Catalog with tasting notes',
@@ -186,7 +222,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'xelpi',
     tagline: 'A website for a company that builds websites.',
     summary:
-      'Xelpi was a web development company that David founded and ran before Redtekk. Its own site had to prove the studio was good at this, so he built it to be fast, clean, and easy to find on Google.',
+      'Xelpi was a web development company. Its own site had to prove the studio was good at this, so it was built to be fast, clean, and easy to find on Google.',
     attribution: 'The site of Xelpi-IT, the company David founded and ran before Redtekk.',
     problem:
       'A web studio with a slow or dated site loses the pitch before it starts. Xelpi needed its own site to be its best reference.',
@@ -258,7 +294,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'pv-design',
     tagline: 'Solar planning software for installers, end to end.',
     summary:
-      'An enterprise solar client, a global manufacturer with international subsidiaries, needed one guided tool for planning a complete PV system. David worked on their web platform before Redtekk, including the planner installers use to go from location to a final report.',
+      'An enterprise solar client, a global manufacturer with international subsidiaries, needed one guided tool for planning a complete PV system. This is their web platform, including the planner installers use to go from location to a final report.',
     attribution: 'Confidential client, built by David before Redtekk.',
     problem:
       'Planning a PV system means juggling location data, consumption, panel layout, inverter sizing, and profitability. The company wanted installers to do all of it in one guided flow, in any market, in any language.',
@@ -330,7 +366,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'zvrk',
     tagline: 'An online store for kids clothing.',
     summary:
-      'ZVRK sells kids clothes. David built their online store: easy browsing for parents, quick checkout, and a look that fits the brand.',
+      'ZVRK sells kids clothes. Their online store is built for easy browsing, quick checkout, and a look that fits the brand.',
     attribution: 'Built by David through Xelpi-IT, the company he ran before Redtekk.',
     problem:
       'Parents shop with one hand and no time. Browsing had to be quick, and checkout had to be short, or carts get abandoned.',
@@ -366,7 +402,7 @@ export const WORK_PROJECT_DETAILS: ReadonlyArray<WorkProjectDetail> = [
     slug: 'solar-operations',
     tagline: 'One screen for every solar plant.',
     summary:
-      'A solar monitoring platform David worked on before Redtekk. Plant owners and operators watch their plants, live electrical values, weather, and savings in real time, in one place.',
+      'A solar monitoring platform for plant owners and operators. They watch their plants, live electrical values, weather, and savings in real time, in one place.',
     attribution: 'Confidential client, built by David before Redtekk.',
     problem:
       'Data about the plants and their inverters lived in separate tools. Operators jumped between systems to check electrical values, weather, and earnings, and problems surfaced late.',

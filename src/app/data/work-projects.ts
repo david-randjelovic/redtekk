@@ -3,6 +3,7 @@ import { WorkProject } from '../interfaces/work-page.interfaces';
 export const WORK_PROJECTS: ReadonlyArray<WorkProject> = [
   { slug: 'herdspace', name: 'HerdSpace', category: 'Marketplace', description: 'AI-powered horse marketplace', image: 'assets/work/herdspace.webp' },
   { slug: 'tangle', name: 'Tangle', category: 'Manufacturing', description: 'AI-powered ERP for manufacturing', image: 'assets/work/tangle.webp' },
+  { slug: 'the-summit', name: 'The Summit', category: 'Real Estate', description: 'Landing page for a luxury villa development', image: 'assets/work/the-summit.webp' },
   { slug: 'solar-operations', name: 'Solar Operations Platform', category: 'Renewable', description: 'Real-time solar monitoring dashboard', nda: true },
   { slug: 'pv-design', name: 'PV Design Platform', category: 'Energy', description: 'Guided PV system design and reporting', nda: true },
   { slug: 'tim', name: 'TIM', category: 'SaaS', description: 'Restaurant table management', image: 'assets/work/tim.webp' },

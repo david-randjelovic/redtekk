@@ -4781,6 +4781,15 @@ footer::after {
 
 .wd-live-link:hover { color: var(--red-bright); }
 
+/* founder name inside the Context line, links to /about#founder */
+.wd-founder-link {
+  color: var(--ink);
+  border-bottom: 1px solid var(--red);
+  transition: color 0.3s;
+}
+
+.wd-founder-link:hover { color: var(--red-bright); }
+
 /* ---- story: label column + large editorial text, no cards ---- */
 
 .wd-story { margin-bottom: clamp(64px, 8vw, 110px); }
